@@ -1,0 +1,1863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaperX — Safely come off your prescription. Launching late 2026.</title>
+<meta name="description" content="TaperX is an AI-guided telehealth program that helps you safely taper off the prescription you no longer need. Join the waitlist for our late 2026 launch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Brand — calm pine green + warm coral accent + cream */
+    --green:     #0f4f3c;
+    --green-d:   #0a3b2c;
+    --green-mid: #1c6b51;
+    --green-bg:  #e7efe9;
+    --green-tint:#f0f5f1;
+
+    --coral:     #ef8466;
+    --coral-d:   #e06a4c;
+    --coral-bg:  #fceee8;
+
+    --ink:       #1b2b25;
+    --ink-soft:  #46564f;
+    --muted:     #7a877f;
+
+    --cream:     #f7f2e9;
+    --cream2:    #fcf8f1;
+    --white:     #ffffff;
+    --line:      rgba(27, 43, 37, 0.10);
+    --line-soft: rgba(27, 43, 37, 0.06);
+
+    --shadow:    0 2px 8px rgba(27,43,37,0.04), 0 18px 48px -24px rgba(27,43,37,0.18);
+    --shadow-sm: 0 1px 3px rgba(27,43,37,0.05), 0 8px 24px -16px rgba(27,43,37,0.18);
+
+    /* emphasis accent (tweakable) */
+    --accent: var(--coral);
+  }
+  body[data-accent="green"] { --accent: var(--green-mid); }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Hanken Grotesk', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--cream2);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -0.005em;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; }
+  input, textarea, select { font-family: inherit; }
+
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ─────────── NAV ─────────── */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(252, 248, 241, 0.85);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 32px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--green);
+  }
+  .logo-x { color: var(--coral); }
+  .nav-links {
+    display: flex;
+    gap: 34px;
+    align-items: center;
+    font-size: 15.5px;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-cta {
+    background: var(--green);
+    color: var(--cream2);
+    padding: 11px 22px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: transform 0.15s ease, background 0.2s ease;
+  }
+  .nav-cta:hover { background: var(--green-d); transform: translateY(-1px); }
+
+  /* ─────────── HERO (shared) ─────────── */
+  .hero {
+    display: none;
+    padding: 76px 0 96px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(80% 120% at 85% 0%, var(--green-tint) 0%, transparent 60%),
+      var(--cream);
+  }
+  body[data-hero="1"] .hero-v1 { display: block; }
+  body[data-hero="2"] .hero-v2 { display: block; }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px 8px 12px;
+    border-radius: 100px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+    color: var(--green);
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .pill-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--coral);
+    box-shadow: 0 0 0 4px var(--coral-bg);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(0.82); }
+  }
+
+  /* ─────────── HERO V1 — split layout ─────────── */
+  .hero-v1 .hero-grid {
+    display: grid;
+    grid-template-columns: 1.08fr 1fr;
+    gap: 72px;
+    align-items: center;
+  }
+  .hero-v1 h1 {
+    font-size: clamp(44px, 5.4vw, 72px);
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 26px 0 24px;
+    text-wrap: balance;
+  }
+  .hero-v1 h1 em, .hero-v2 h1 em { font-style: normal; color: var(--accent); }
+  .hero-v1 .hero-sub {
+    font-size: clamp(17px, 1.3vw, 20px);
+    color: var(--ink-soft);
+    line-height: 1.6;
+    max-width: 520px;
+    margin-bottom: 34px;
+  }
+
+  /* Inline mini-form */
+  .hero-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-width: 510px;
+    background: var(--white);
+    padding: 8px;
+    border-radius: 100px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-sm);
+  }
+  .hero-form input {
+    flex: 1;
+    min-width: 150px;
+    padding: 13px 20px;
+    border-radius: 100px;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .hero-form input:focus { outline: none; }
+  .hero-form button {
+    padding: 13px 26px;
+    border-radius: 100px;
+    background: var(--green);
+    color: var(--cream2);
+    font-weight: 600;
+    font-size: 16px;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+  }
+  .hero-form button:hover { background: var(--green-d); }
+
+  .hero-form-note {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 16px;
+  }
+
+  .hero-character {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-art {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 440px;
+    aspect-ratio: 1 / 1;
+    border-radius: 32px;
+    background:
+      radial-gradient(120% 120% at 30% 20%, var(--green-bg) 0%, var(--coral-bg) 100%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .hero-art img { width: 92%; height: auto; display: block; }
+
+  /* Floating AI assistant card — the "Health AI" nod */
+  .ai-card {
+    position: absolute;
+    z-index: 2;
+    bottom: 24px;
+    left: -28px;
+    width: 252px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 14px 16px;
+    box-shadow: var(--shadow);
+  }
+  .ai-card-head {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 10px;
+  }
+  .ai-avatar {
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  .ai-name { font-size: 13px; font-weight: 700; color: var(--ink); }
+  .ai-status { font-size: 11px; color: var(--green-mid); font-weight: 600; }
+  .ai-bubble {
+    background: var(--green-tint);
+    border-radius: 4px 14px 14px 14px;
+    padding: 10px 13px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.45;
+  }
+  .ai-typing { display: inline-flex; gap: 3px; margin-top: 8px; padding-left: 2px; }
+  .ai-typing span {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--coral);
+    animation: blink 1.4s infinite both;
+  }
+  .ai-typing span:nth-child(2) { animation-delay: 0.2s; }
+  .ai-typing span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }
+
+  /* ─────────── HERO V2 — centered narrative ─────────── */
+  .hero-v2 {
+    padding: 64px 0 84px;
+    text-align: center;
+  }
+  .hero-v2 .hero-v2-inner {
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .hero-v2 h1 {
+    font-size: clamp(48px, 6.2vw, 88px);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin: 30px 0 22px;
+    text-wrap: balance;
+  }
+  .hero-v2 .hero-sub {
+    font-size: clamp(18px, 1.4vw, 22px);
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+  .hero-v2 .v2-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+  }
+  .btn-primary {
+    background: var(--green);
+    color: var(--cream2);
+    padding: 17px 30px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 17px;
+    transition: background 0.2s ease, transform 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-primary:hover { background: var(--green-d); transform: translateY(-1px); }
+  .btn-secondary {
+    background: var(--white);
+    color: var(--green);
+    border: 1px solid var(--line);
+    padding: 17px 30px;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: 17px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: var(--shadow-sm);
+  }
+  .btn-secondary:hover { border-color: var(--green); }
+
+  .hero-v2-character {
+    position: relative;
+    margin: 0 auto;
+    max-width: 360px;
+  }
+  .hero-v2-character .hero-art {
+    max-width: 360px;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+  }
+
+  /* ─────────── SHARED SECTION STYLES ─────────── */
+  section {
+    padding: 96px 0;
+    position: relative;
+  }
+  .section-eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--coral-d);
+    margin-bottom: 18px;
+  }
+  .section-title {
+    font-size: clamp(34px, 4.2vw, 54px);
+    font-weight: 800;
+    line-height: 1.06;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    max-width: 860px;
+    margin-bottom: 24px;
+    text-wrap: balance;
+  }
+  .section-title em { font-style: normal; color: var(--accent); }
+  .body-large {
+    font-size: clamp(17px, 1.2vw, 19px);
+    color: var(--ink-soft);
+    line-height: 1.65;
+    max-width: 660px;
+  }
+
+  /* ─────────── BANNER STRIP ─────────── */
+  .banner {
+    background: var(--green);
+    color: var(--cream2);
+    padding: 15px 0;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .banner strong { color: #fff; font-weight: 700; }
+  .banner .banner-dot { color: var(--coral); margin: 0 6px; }
+
+  /* ─────────── PROBLEM ─────────── */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 64px;
+    align-items: start;
+    margin-top: 56px;
+  }
+  .empathy-stat {
+    padding: 32px;
+    background: var(--white);
+    border-radius: 22px;
+    border: 1px solid var(--line-soft);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 16px;
+  }
+  .empathy-num {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    color: var(--green);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+  .empathy-label {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* ─────────── HOW IT WORKS — 4 steps ─────────── */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    margin-top: 56px;
+  }
+  .step {
+    padding: 32px 26px;
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    border-radius: 22px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .step:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .step-num {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--green-bg);
+    color: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 19px;
+    font-weight: 800;
+    margin-bottom: 20px;
+  }
+  .step-title {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .step-body {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+
+  /* ─────────── COMPARISON — TaperX vs Old way ─────────── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 56px;
+  }
+  .compare-card {
+    padding: 42px;
+    border-radius: 26px;
+    position: relative;
+  }
+  .compare-old {
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    box-shadow: var(--shadow-sm);
+  }
+  .compare-new {
+    background: var(--green);
+    color: var(--cream2);
+    box-shadow: var(--shadow);
+  }
+  .compare-new::before {
+    content: 'TaperX way';
+    position: absolute;
+    top: -13px;
+    right: 32px;
+    background: var(--coral);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .compare-old::before {
+    content: 'Today';
+    position: absolute;
+    top: -13px;
+    right: 32px;
+    background: var(--white);
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .compare-title {
+    font-size: 27px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+  }
+  .compare-old .compare-title { color: var(--ink); }
+  .compare-new .compare-title { color: #fff; }
+  .compare-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .compare-list li {
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .compare-list li svg { flex-shrink: 0; margin-top: 3px; }
+  .compare-old .compare-list li { color: var(--muted); }
+  .compare-new .compare-list li { color: rgba(247,242,233,0.85); }
+  .compare-new .compare-list li strong { color: #fff; font-weight: 700; }
+
+  .compare-price {
+    margin-top: 30px;
+    padding-top: 26px;
+    border-top: 1px solid var(--line);
+  }
+  .compare-new .compare-price { border-color: rgba(247,242,233,0.18); }
+  .compare-price-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .compare-new .compare-price-label { color: var(--coral); }
+  .compare-price-value {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .compare-new .compare-price-value { color: #fff; }
+
+  /* ─────────── MEDICATIONS GRID ─────────── */
+  .meds-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 52px;
+  }
+  .med-card {
+    padding: 26px 22px;
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .med-card.featured {
+    background: var(--green);
+    color: var(--cream2);
+    border-color: var(--green);
+  }
+  .med-name {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .med-card.featured .med-name { color: #fff; }
+  .med-examples {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.45;
+  }
+  .med-card.featured .med-examples { color: rgba(247,242,233,0.8); }
+  .med-tag {
+    margin-top: 14px;
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: var(--coral);
+    padding: 4px 11px;
+    border-radius: 100px;
+  }
+  .med-card.featured .med-tag { color: var(--green); background: var(--coral); }
+
+  /* ─────────── MEET TAPERX (mascot) ─────────── */
+  .mascot-section { background: var(--green-tint); }
+  .mascot-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 72px;
+    align-items: center;
+  }
+  .mascot-img-wrap {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background: radial-gradient(120% 120% at 30% 20%, var(--green-bg) 0%, var(--coral-bg) 100%);
+    display: flex; align-items: flex-end; justify-content: center;
+    box-shadow: var(--shadow);
+  }
+  .mascot-img-wrap img { width: 88%; height: auto; }
+  .mascot-grid strong { color: var(--green); font-weight: 700; }
+
+  /* ─────────── FAQ ─────────── */
+  .faq-list {
+    margin-top: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 860px;
+  }
+  .faq-item {
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .faq-q {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    padding: 22px 26px;
+    cursor: pointer;
+    background: none;
+    width: 100%;
+    text-align: left;
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    transition: color 0.2s ease;
+  }
+  .faq-q:hover { color: var(--green); }
+  .faq-q::after {
+    content: '+';
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--green);
+    transition: transform 0.25s ease;
+    flex-shrink: 0;
+  }
+  .faq-item[open] .faq-q::after { transform: rotate(45deg); }
+  .faq-a {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    padding: 0 26px 24px 26px;
+  }
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+
+  /* ─────────── WAITLIST FORM (main) ─────────── */
+  .waitlist-section {
+    background:
+      radial-gradient(70% 100% at 80% 0%, var(--green-mid) 0%, transparent 55%),
+      var(--green);
+    color: var(--cream2);
+  }
+  .waitlist-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .waitlist-inner .section-eyebrow { color: var(--coral); }
+  .waitlist-inner .section-title {
+    color: #fff;
+    margin-left: auto; margin-right: auto;
+  }
+  .waitlist-inner .section-title em { color: var(--coral); }
+  .waitlist-inner .body-large {
+    color: rgba(247,242,233,0.82);
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+  .form-card {
+    background: var(--white);
+    border-radius: 26px;
+    padding: 40px;
+    text-align: left;
+    box-shadow: var(--shadow);
+  }
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .field input, .field select, .field textarea {
+    width: 100%;
+    padding: 15px 18px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: var(--cream2);
+    color: var(--ink);
+    font-size: 16px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .field textarea { resize: vertical; min-height: 96px; line-height: 1.5; }
+  .field input::placeholder, .field textarea::placeholder { color: var(--muted); }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--green);
+    background: var(--white);
+  }
+  .field select option { background: var(--white); color: var(--ink); }
+
+  .form-submit {
+    width: 100%;
+    padding: 17px 28px;
+    border-radius: 14px;
+    background: var(--green);
+    color: var(--cream2);
+    font-weight: 700;
+    font-size: 17px;
+    margin-top: 6px;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+  .form-submit:hover { background: var(--green-d); }
+  .form-submit:active { transform: translateY(1px); }
+
+  .form-privacy {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 20px;
+  }
+  .form-success.active { display: block; }
+  .form-success-icon {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: var(--green-bg);
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    font-size: 30px;
+  }
+  .form-success h3 {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .form-success p {
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  /* ─────────── FEATURES (what's inside the app) ─────────── */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+    margin-top: 56px;
+  }
+  .feat {
+    padding: 32px 28px;
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    border-radius: 22px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .feat:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .feat-icon {
+    width: 52px; height: 52px;
+    border-radius: 15px;
+    background: var(--green-bg);
+    color: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 20px;
+  }
+  .feat-title {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.25;
+  }
+  .feat-body {
+    font-size: 15px;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .feat-tag {
+    display: inline-block;
+    margin-top: 14px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--green); background: var(--coral);
+    padding: 4px 11px; border-radius: 100px;
+  }
+
+  /* ─────────── SYMPTOM TRACKER ─────────── */
+  .tracker-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 72px;
+    align-items: center;
+    margin-top: 12px;
+  }
+  .tracker-copy .section-eyebrow { margin-top: 0; }
+  .tracker-points {
+    list-style: none;
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .tracker-points li {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .tracker-points li strong { color: var(--ink); font-weight: 700; }
+  .tracker-check {
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--green-bg);
+    color: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+
+  /* The mock tracker panel */
+  .tracker-panel {
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    border-radius: 26px;
+    padding: 28px;
+    box-shadow: var(--shadow);
+  }
+  .tracker-panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+  }
+  .tracker-panel-title { font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; }
+  .tracker-panel-day { font-size: 13px; font-weight: 600; color: var(--muted); }
+
+  .tracker-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 0;
+    border-top: 1px solid var(--line-soft);
+  }
+  .tracker-row-name { font-size: 14.5px; font-weight: 600; color: var(--ink); flex: 1; }
+  .sev-bar {
+    width: 96px;
+    height: 7px;
+    border-radius: 100px;
+    background: var(--green-tint);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .sev-fill { height: 100%; border-radius: 100px; }
+  .sev-low    { width: 28%; background: var(--green-mid); }
+  .sev-mid    { width: 58%; background: #e6a23c; }
+  .sev-high   { width: 84%; background: var(--coral-d); }
+  .sev-label {
+    font-size: 12px; font-weight: 700;
+    width: 54px; text-align: right; flex-shrink: 0;
+  }
+  .sev-label.low  { color: var(--green-mid); }
+  .sev-label.mid  { color: #c4801f; }
+  .sev-label.high { color: var(--coral-d); }
+
+  .tracker-insight {
+    margin-top: 22px;
+    background: var(--green);
+    border-radius: 16px;
+    padding: 16px 18px;
+    display: flex;
+    gap: 13px;
+    align-items: flex-start;
+  }
+  .tracker-insight-icon {
+    flex-shrink: 0;
+    width: 30px; height: 30px;
+    border-radius: 9px;
+    background: rgba(247,242,233,0.15);
+    color: var(--coral);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tracker-insight-text { font-size: 13.5px; line-height: 1.5; color: rgba(247,242,233,0.92); }
+  .tracker-insight-text b { color: #fff; font-weight: 700; }
+
+  .tracker-count {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .tracker-count .num {
+    font-size: 56px; font-weight: 800;
+    letter-spacing: -0.04em; color: var(--green); line-height: 1;
+  }
+  .tracker-count .cap { font-size: 16px; color: var(--ink-soft); font-weight: 500; }
+
+  /* ─────────── COACH (book now) ─────────── */
+  .coach-section {
+    background:
+      radial-gradient(70% 100% at 15% 0%, var(--green-mid) 0%, transparent 55%),
+      var(--green);
+    color: var(--cream2);
+  }
+  .coach-section .section-eyebrow { color: var(--coral); }
+  .coach-section .section-title { color: #fff; }
+  .coach-section .section-title em { color: var(--coral); }
+  .coach-intro {
+    color: rgba(247,242,233,0.85);
+    font-size: clamp(17px, 1.2vw, 19px);
+    line-height: 1.65;
+    max-width: 680px;
+  }
+  .coach-note {
+    display: flex; gap: 13px; align-items: flex-start;
+    margin-top: 26px;
+    background: rgba(247,242,233,0.08);
+    border: 1px solid rgba(247,242,233,0.18);
+    border-radius: 14px;
+    padding: 16px 18px;
+    max-width: 680px;
+    font-size: 14.5px; line-height: 1.5;
+    color: rgba(247,242,233,0.9);
+  }
+  .coach-note svg { flex-shrink: 0; color: var(--coral); margin-top: 2px; }
+  .coach-note b { color: #fff; font-weight: 700; }
+
+  .coach-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 48px;
+    align-items: stretch;
+  }
+  .coach-card {
+    background: var(--white);
+    border-radius: 22px;
+    padding: 32px 28px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow);
+  }
+  .coach-card.featured { outline: 2px solid var(--coral); outline-offset: -2px; }
+  .coach-badge {
+    align-self: flex-start;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    color: var(--green); background: var(--coral);
+    padding: 4px 11px; border-radius: 100px;
+    margin-bottom: 16px;
+  }
+  .coach-card-name {
+    font-size: 20px; font-weight: 700;
+    letter-spacing: -0.02em; color: var(--ink); margin-bottom: 4px;
+  }
+  .coach-card-meta { font-size: 13.5px; color: var(--muted); font-weight: 600; margin-bottom: 18px; }
+  .coach-price { display: flex; align-items: baseline; gap: 8px; margin-bottom: 18px; }
+  .coach-price .amt { font-size: 38px; font-weight: 800; letter-spacing: -0.03em; color: var(--green); line-height: 1; }
+  .coach-price .dur { font-size: 14px; color: var(--ink-soft); font-weight: 600; }
+  .coach-desc { font-size: 14.5px; color: var(--ink-soft); line-height: 1.55; flex: 1; margin-bottom: 22px; }
+  .coach-book {
+    display: block; text-align: center;
+    padding: 14px 20px;
+    border-radius: 100px;
+    background: var(--green);
+    color: var(--cream2);
+    font-weight: 700; font-size: 15.5px;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+  .coach-book:hover { background: var(--green-d); transform: translateY(-1px); }
+  .coach-card.featured .coach-book { background: var(--coral); color: var(--green); }
+  .coach-card.featured .coach-book:hover { background: var(--coral-d); }
+
+  /* ─────────── SURVEY (inside waitlist form) ─────────── */
+  .survey {
+    margin-top: 4px;
+    margin-bottom: 22px;
+    padding-top: 26px;
+    border-top: 1px solid var(--line);
+  }
+  .survey-head { margin-bottom: 24px; }
+  .survey-badge {
+    display: inline-block;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--green); background: var(--green-bg);
+    padding: 5px 12px; border-radius: 100px;
+    margin-bottom: 12px;
+  }
+  .survey-head p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+  .survey-q { margin-bottom: 24px; }
+  .survey-q-label {
+    display: flex; align-items: flex-start; gap: 10px;
+    font-size: 16px; font-weight: 600; color: var(--ink);
+    margin-bottom: 13px; line-height: 1.4;
+  }
+  .q-num {
+    flex-shrink: 0;
+    width: 23px; height: 23px;
+    border-radius: 50%;
+    background: var(--green); color: #fff;
+    font-size: 12px; font-weight: 700;
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-top: 1px;
+  }
+  .opt-group { display: flex; flex-wrap: wrap; gap: 9px; padding-left: 33px; }
+  .opt { position: relative; cursor: pointer; }
+  .opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .opt span {
+    display: block;
+    padding: 11px 19px;
+    border-radius: 100px;
+    border: 1.5px solid var(--line);
+    background: var(--cream2);
+    font-size: 15px; font-weight: 600; color: var(--ink-soft);
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  }
+  .opt:hover span { border-color: var(--green-mid); color: var(--green); }
+  .opt input:checked + span {
+    background: var(--green); border-color: var(--green); color: #fff;
+  }
+  .opt input:focus-visible + span { outline: 2px solid var(--coral); outline-offset: 2px; }
+
+  .survey-text-input {
+    margin-top: 12px;
+    margin-left: 33px;
+    width: calc(100% - 33px);
+    padding: 13px 16px;
+    border-radius: 12px;
+    border: 1.5px solid var(--line);
+    background: var(--cream2);
+    font-size: 15px;
+    color: var(--ink);
+    transition: border-color 0.15s ease, background 0.15s ease;
+  }
+  .survey-text-input::placeholder { color: var(--muted); }
+  .survey-text-input:focus { outline: none; border-color: var(--green); background: var(--white); }
+
+  .survey-soon {
+    display: flex; align-items: center; gap: 12px;
+    padding: 15px 18px;
+    border: 1.5px dashed var(--line);
+    border-radius: 14px;
+    margin-bottom: 11px;
+    background: var(--green-tint);
+  }
+  .survey-soon .q-num { background: var(--muted); margin-top: 0; }
+  .survey-soon-text b { font-size: 14px; color: var(--ink-soft); font-weight: 700; display: block; }
+  .survey-soon-text small { font-size: 13px; color: var(--muted); }
+
+  /* ─────────── FOOTER ─────────── */
+  footer {
+    background: var(--green-d);
+    color: rgba(247,242,233,0.7);
+    padding: 56px 0 40px;
+  }
+  .footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .footer-logo {
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: #fff;
+  }
+  .footer-logo em { font-style: normal; color: var(--coral); }
+  .footer-meta {
+    font-size: 13px;
+    color: rgba(247,242,233,0.55);
+  }
+  .footer-links {
+    display: flex;
+    gap: 26px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .footer-links a:hover { color: var(--coral); }
+  .footer-disclaimer {
+    margin-top: 38px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(247,242,233,0.12);
+    font-size: 12px;
+    color: rgba(247,242,233,0.5);
+    line-height: 1.55;
+    max-width: 860px;
+  }
+
+  /* ─────────── RESPONSIVE ─────────── */
+  @media (max-width: 920px) {
+    .hero-v1 .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-character { max-width: 420px; margin: 0 auto; }
+    .ai-card { left: 0; }
+    .problem-grid { grid-template-columns: 1fr; gap: 36px; }
+    .steps { grid-template-columns: 1fr 1fr; }
+    .features { grid-template-columns: 1fr 1fr; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .meds-grid { grid-template-columns: 1fr 1fr; }
+    .coach-cards { grid-template-columns: 1fr; }
+    .tracker-grid { grid-template-columns: 1fr; gap: 44px; }
+    .mascot-grid { grid-template-columns: 1fr; gap: 44px; }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 540px) {
+    .steps { grid-template-columns: 1fr; }
+    .features { grid-template-columns: 1fr; }
+    .opt-group { padding-left: 0; }
+    .survey-text-input { margin-left: 0; width: 100%; }
+    .meds-grid { grid-template-columns: 1fr; }
+    section { padding: 60px 0; }
+    .form-card { padding: 26px; }
+    .compare-card { padding: 30px; }
+    .ai-card { display: none; }
+  }
+</style>
+</head>
+<body data-hero="1" data-accent="coral">
+
+  <!-- ─────────── NAVIGATION ─────────── -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="#" class="logo">Taper<span class="logo-x">X</span></a>
+      <div class="nav-links">
+        <a href="#how">The app</a>
+        <a href="#coach">Coaching</a>
+        <a href="#meds">What you can taper</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <a href="#waitlist" class="nav-cta">Join the waitlist</a>
+    </div>
+  </nav>
+
+  <!-- ─────────── HERO VARIATION 1 — Split layout ─────────── -->
+  <section class="hero hero-v1" data-screen-label="Hero (split)">
+    <div class="container">
+      <div class="hero-grid">
+        <div>
+          <div class="pill"><span class="pill-dot"></span>Now accepting waitlist applications</div>
+
+          <h1>Coming off your medication, with you every step.</h1>
+
+          <p class="hero-sub">TaperX is the app for safely tapering off a prescription you no longer need — a taper plan built around you, trusted research at your fingertips, real answers from people who've done it, and a coach when you want one. Launching late 2026.</p>
+
+          <form class="hero-form" data-mini-form>
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="email" name="email" placeholder="Email address" required>
+            <button type="submit">Join waitlist</button>
+          </form>
+          <p class="hero-form-note">Takes 30 seconds. We'll ask a few quick questions to help shape the app. No spam — unsubscribe anytime.</p>
+        </div>
+
+        <div class="hero-character">
+          <div class="hero-art">
+            <img src="taperx-character.svg" alt="TaperX — your guide through coming off your prescription">
+          </div>
+          <div class="ai-card">
+            <div class="ai-card-head">
+              <div class="ai-avatar">RT</div>
+              <div>
+                <div class="ai-name">Rex Taper</div>
+                <div class="ai-status">● Your TaperX assistant</div>
+              </div>
+            </div>
+            <div class="ai-bubble">Rough morning? It's Rex — let's slow your next step down a little. You're still right on track.</div>
+            <div class="ai-typing"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── HERO VARIATION 2 — Centered narrative ─────────── -->
+  <section class="hero hero-v2" data-screen-label="Hero (centered)">
+    <div class="container">
+      <div class="hero-v2-inner">
+        <div class="pill" style="margin: 0 auto;"><span class="pill-dot"></span>Launching late 2026 · Now accepting waitlist applications</div>
+
+        <h1>The medication got you here. <em>We'll help you come back.</em></h1>
+
+        <p class="hero-sub">Most prescriptions are far easier to start than to stop. TaperX is the app built to guide you off your medication — a personalized taper plan, evidence-based answers, the wisdom of people who've been there, and a coach when you need one.</p>
+
+        <div class="v2-buttons">
+          <a href="#waitlist" class="btn-primary">Join the waitlist
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="#how" class="btn-secondary">See how it works</a>
+        </div>
+
+        <div class="hero-v2-character">
+          <div class="hero-art">
+            <img src="taperx-character.svg" alt="TaperX — your guide through coming off your prescription">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── ANNOUNCEMENT BANNER ─────────── -->
+  <div class="banner">
+    <strong>Now accepting waitlist applications.</strong><span class="banner-dot">·</span>Launching late 2026.
+  </div>
+
+  <!-- ─────────── PROBLEM ─────────── -->
+  <section id="problem" style="background:var(--cream2);" data-screen-label="The problem">
+    <div class="container">
+      <div class="section-eyebrow">The Problem</div>
+      <h2 class="section-title">Coming off a prescription is harder than getting on one.</h2>
+
+      <div class="problem-grid">
+        <p class="body-large" style="font-size:21px;">
+          Most long-term medications cause your body to adapt. Stopping suddenly is unsafe — sometimes dangerous. But a proper taper takes months of careful, personalized dose adjustments that a typical doctor's office isn't set up to manage.
+          <br><br>
+          So patients get told to "cut your pill in half," sent to rehab, or left to figure it out alone. We think there's a kinder, safer way.
+        </p>
+
+        <div>
+          <div class="empathy-stat">
+            <div class="empathy-num">50M+</div>
+            <div class="empathy-label">Americans on a long-term prescription that requires a managed taper to safely discontinue.</div>
+          </div>
+          <div class="empathy-stat">
+            <div class="empathy-num">6–18</div>
+            <div class="empathy-label">Months is the typical safe taper window for benzodiazepines — longer than most doctors will manage.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── WHAT'S INSIDE THE APP ─────────── -->
+  <section id="how" style="background:var(--cream);" data-screen-label="The app">
+    <div class="container">
+      <div class="section-eyebrow">Inside the app</div>
+      <h2 class="section-title">Everything you need to taper, in one place.</h2>
+      <p class="body-large">No cold turkey. No piecing it together from scattered forum threads at 2am. TaperX brings the plan, the research, the community, and a real coach together — so you're never doing this alone.</p>
+
+      <div class="features">
+
+        <div class="feat">
+          <div class="feat-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 18h6M4 12h10M4 6h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="17" cy="18" r="3" stroke="currentColor" stroke-width="1.8"/></svg>
+          </div>
+          <div class="feat-title">A custom taper program</div>
+          <div class="feat-body">A step-down schedule built around your medication, dose, and timeline — including the small, precise reductions a standard pill bottle can't give you. Adjust the pace anytime as you go.</div>
+        </div>
+
+        <div class="feat">
+          <div class="feat-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 5.5A1.5 1.5 0 015.5 4H12v15H5.5A1.5 1.5 0 014 17.5v-12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M20 5.5A1.5 1.5 0 0018.5 4H12v15h6.5a1.5 1.5 0 001.5-1.5v-12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="feat-title">Answers from verified sources</div>
+          <div class="feat-body">Ask Rex, your TaperX assistant, any question and get an answer grounded in real clinical research and evidence-based guidance — with the sources cited, so you can trust where it came from.</div>
+        </div>
+
+        <div class="feat">
+          <div class="feat-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="feat-title">Plain-language summaries</div>
+          <div class="feat-body">The most important topics — withdrawal, timelines, methods, what to expect — distilled into clear, readable summaries. The essentials, without the jargon or the rabbit holes.</div>
+        </div>
+
+        <div class="feat">
+          <div class="feat-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 6a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H9l-5 4V6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </div>
+          <div class="feat-title">Wisdom from the community</div>
+          <div class="feat-body">The best questions and answers from Facebook groups, Reddit, and taper forums — gathered, organized, and searchable. Learn from thousands who've walked this road before you.</div>
+        </div>
+
+        <div class="feat">
+          <div class="feat-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M5 18v-5a7 7 0 0114 0v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="3" y="14" width="4" height="6" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="17" y="14" width="4" height="6" rx="2" stroke="currentColor" stroke-width="1.8"/></svg>
+          </div>
+          <div class="feat-title">Talk to a TaperX coach</div>
+          <div class="feat-body">Want a human in your corner? Book time with a TaperX coach to review your plan, talk through symptoms, and answer the questions an app can't — and you can <a href="#coach" style="color:var(--green);font-weight:700;">book one today</a>, before the app launches.</div>
+          <span class="feat-tag">Available now</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── SYMPTOM TRACKER ─────────── -->
+  <section id="tracker" style="background:var(--cream2);" data-screen-label="Symptom tracker">
+    <div class="container">
+      <div class="tracker-grid">
+
+        <div class="tracker-copy">
+          <div class="section-eyebrow">Symptom tracker</div>
+          <h2 class="section-title" style="font-size: clamp(32px, 3.8vw, 48px);">Know what's happening in your body — and what to do about it.</h2>
+          <p class="body-large">Withdrawal can show up in more than <strong>100 different symptoms</strong>, and they shift week to week. TaperX lets you log how you're feeling in seconds, see the patterns over time, and get evidence-based suggestions for easing the symptoms that hit hardest.</p>
+
+          <ul class="tracker-points">
+            <li>
+              <span class="tracker-check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span><strong>Track 100+ symptoms</strong> — from sleep, anxiety, and brain fog to the physical ones — with a quick daily check-in.</span>
+            </li>
+            <li>
+              <span class="tracker-check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span><strong>See the trends</strong> — spot when a symptom is climbing so you can slow your taper before it overwhelms you.</span>
+            </li>
+            <li>
+              <span class="tracker-check"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 12l5 5L20 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span><strong>Get ways to minimize them</strong> — research-backed and community-tested tips matched to the symptoms you're actually logging.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="tracker-panel" aria-hidden="true">
+          <div class="tracker-panel-head">
+            <div class="tracker-panel-title">Today's check-in</div>
+            <div class="tracker-panel-day">Week 6 · Day 3</div>
+          </div>
+
+          <div class="tracker-row">
+            <span class="tracker-row-name">Sleep disturbance</span>
+            <span class="sev-bar"><span class="sev-fill sev-high"></span></span>
+            <span class="sev-label high">High</span>
+          </div>
+          <div class="tracker-row">
+            <span class="tracker-row-name">Anxiety</span>
+            <span class="sev-bar"><span class="sev-fill sev-mid"></span></span>
+            <span class="sev-label mid">Medium</span>
+          </div>
+          <div class="tracker-row">
+            <span class="tracker-row-name">Brain fog</span>
+            <span class="sev-bar"><span class="sev-fill sev-mid"></span></span>
+            <span class="sev-label mid">Medium</span>
+          </div>
+          <div class="tracker-row">
+            <span class="tracker-row-name">Muscle tension</span>
+            <span class="sev-bar"><span class="sev-fill sev-low"></span></span>
+            <span class="sev-label low">Mild</span>
+          </div>
+
+          <div class="tracker-insight">
+            <span class="tracker-insight-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.6.6 1 1.3 1 2.1V16h6v-.4c0-.8.4-1.5 1-2.1A6 6 0 0012 3z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <div class="tracker-insight-text"><b>Sleep is trending up.</b> Many tapering this medication find a slower next step plus a consistent wind-down routine helps. Tap to see what's worked for others.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="margin-top:64px; padding-top:48px; border-top:1px solid var(--line); text-align:center;">
+        <div class="tracker-count">
+          <span class="num">100+</span>
+          <span class="cap">withdrawal symptoms tracked, so nothing you feel goes unexplained.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── MEDICATIONS ─────────── -->
+  <section id="meds" style="background:var(--cream);" data-screen-label="Medications">
+    <div class="container">
+      <div class="section-eyebrow">What you can taper</div>
+      <h2 class="section-title">Built for the prescriptions that are hardest to stop.</h2>
+      <p class="body-large">We're starting with benzodiazepines — where the need is most acute and the gap in support is widest. More medication types follow.</p>
+
+      <div class="meds-grid">
+
+        <div class="med-card featured">
+          <div class="med-name">Benzodiazepines</div>
+          <div class="med-examples">Xanax · Klonopin · Ativan · Valium</div>
+          <span class="med-tag">Available at launch</span>
+        </div>
+
+        <div class="med-card">
+          <div class="med-name">GLP-1 / Weight Loss</div>
+          <div class="med-examples">Ozempic · Wegovy · Mounjaro</div>
+        </div>
+
+        <div class="med-card">
+          <div class="med-name">Antidepressants</div>
+          <div class="med-examples">SSRIs · SNRIs · Antipsychotics</div>
+        </div>
+
+        <div class="med-card">
+          <div class="med-name">Hormone Therapy</div>
+          <div class="med-examples">HRT · TRT · Thyroid medications</div>
+        </div>
+
+        <div class="med-card">
+          <div class="med-name">Heart Medications</div>
+          <div class="med-examples">Blood pressure · Blood thinners</div>
+        </div>
+
+        <div class="med-card">
+          <div class="med-name">Gabapentinoids</div>
+          <div class="med-examples">Gabapentin · Pregabalin</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── TALK TO A COACH (available now) ─────────── -->
+  <section id="coach" class="coach-section" data-screen-label="Talk to a coach">
+    <div class="container">
+      <div class="section-eyebrow">Available now — before the app</div>
+      <h2 class="section-title">You don't have to wait. <em>Talk to a coach today.</em></h2>
+      <p class="coach-intro">Tapering can feel confusing and lonely, and the app is still on its way. So we've opened up one-on-one coaching you can book right now. In a private session, a TaperX coach will help you map a tapering plan grounded in the latest evidence, walk you through your options, keep an eye on how you're progressing, and help you make the case to your prescriber for the support you need.</p>
+
+      <div class="coach-note">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.7"/><path d="M12 8v5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="16" r="1" fill="currentColor"/></svg>
+        <span><b>Please note:</b> coaching is a separate, human-led service available today. The TaperX app is still in development and <b>won't be ready</b> when you book — a session connects you with a coach directly, not the app.</span>
+      </div>
+
+      <div class="coach-cards">
+
+        <div class="coach-card featured">
+          <span class="coach-badge">Start here</span>
+          <div class="coach-card-name">First consultation</div>
+          <div class="coach-card-meta">60 minutes · one-on-one</div>
+          <div class="coach-price"><span class="amt">$149</span><span class="dur">/ session</span></div>
+          <p class="coach-desc">Your starting point. A full hour to get to know your medication, your history, and your goals — and to build a personalised tapering plan designed around you.</p>
+          <a href="mailto:coaching@taperx.com?subject=Book%20a%20First%20Consultation%20(60%20min%20%E2%80%93%20%24149)" class="coach-book">Book a consultation</a>
+        </div>
+
+        <div class="coach-card">
+          <span class="coach-badge">Follow-up · long</span>
+          <div class="coach-card-name">Follow-up (long)</div>
+          <div class="coach-card-meta">30 minutes · one-on-one</div>
+          <div class="coach-price"><span class="amt">$95</span><span class="dur">/ session</span></div>
+          <p class="coach-desc">For anyone who already has a TaperX plan and has more than a quick question. We'll talk through your concerns and adjust your plan to match how you're doing. Also a good fit if you're tapering on a plan built outside TaperX and want personalised advice on it.</p>
+          <a href="mailto:coaching@taperx.com?subject=Book%20a%20Follow-up%20(long%2C%2030%20min%20%E2%80%93%20%2495)" class="coach-book">Book a long follow-up</a>
+        </div>
+
+        <div class="coach-card">
+          <span class="coach-badge">Follow-up · standard</span>
+          <div class="coach-card-name">Follow-up (standard)</div>
+          <div class="coach-card-meta">15 minutes · one-on-one</div>
+          <div class="coach-price"><span class="amt">$50</span><span class="dur">/ session</span></div>
+          <p class="coach-desc">A quick check-in for a single question or a small adjustment once your plan is already underway.</p>
+          <a href="mailto:coaching@taperx.com?subject=Book%20a%20Follow-up%20(standard%2C%2015%20min%20%E2%80%93%20%2450)" class="coach-book">Book a quick follow-up</a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── MEET TAPERX (mascot) ─────────── -->
+  <section class="mascot-section" data-screen-label="Meet TaperX">
+    <div class="container">
+      <div class="mascot-grid">
+        <div class="mascot-img-wrap">
+          <img src="taperx-character.svg" alt="The TaperX character — your guide through coming off your prescription">
+        </div>
+
+        <div>
+          <div class="section-eyebrow">Meet TaperX</div>
+          <h2 class="section-title" style="font-size: clamp(32px, 3.8vw, 48px);">A guide for a journey no one prepared you for.</h2>
+          <p class="body-large" style="margin-bottom:22px;">When our founder tried to come off the Xanax he'd been prescribed for 14 years, no program existed. No protocol. No support. Just doctors who didn't know how to help and rehab centers built for the wrong problem.</p>
+          <p class="body-large">TaperX is what he wished had existed — a program built by patients, for patients, backed by clinical evidence, guided by AI, and grounded in one simple belief: <strong>every prescription should have an off-ramp.</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── FAQ ─────────── -->
+  <section id="faq" style="background:var(--cream2);" data-screen-label="FAQ">
+    <div class="container">
+      <div class="section-eyebrow">Common questions</div>
+      <h2 class="section-title">What you might be wondering.</h2>
+
+      <div class="faq-list">
+
+        <details class="faq-item" open>
+          <summary class="faq-q">When does TaperX launch?</summary>
+          <div class="faq-a">We're aiming for a late 2026 launch, starting with support for benzodiazepines. Waitlist members get first access, a say in what we build, and a founding-member discount.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">What medications will the app support at launch?</summary>
+          <div class="faq-a">At launch we'll focus on benzodiazepines (Xanax, Klonopin, Ativan, Valium, and others). Additional categories — GLP-1s, antidepressants, hormone therapy, and heart medications — will follow based on demand from the waitlist.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Does TaperX replace my doctor, pharmacist, or taper clinic?</summary>
+          <div class="faq-a">Not at all — TaperX is a companion app designed to work <em>alongside</em> the people already helping you. It organizes your plan, gathers trusted research and community wisdom in one place, and helps you have better-informed conversations with your prescriber, pharmacist, or taper specialist. We deeply respect the clinicians and programs doing this work, and we see TaperX as a support tool for patients, not a replacement for care.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Is this addiction treatment?</summary>
+          <div class="faq-a">No. Most people tapering took their medication exactly as prescribed — they didn't misuse it, and they aren't addicted. They're physically dependent, which is a normal, expected response to long-term use of certain medications. TaperX is built for exactly this situation.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">How much will the app cost?</summary>
+          <div class="faq-a">We're still figuring that out — and that's exactly why we're asking. The short survey on the waitlist helps us land on pricing that's fair and sustainable. Waitlist members will get a founding-member discount when we launch.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Will the app coordinate with my own doctor?</summary>
+          <div class="faq-a">That's the idea. TaperX is designed to help you bring a clear, evidence-based plan to your existing prescriber so you can taper together. You're always in control of what you share and with whom.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Is the information safe to rely on?</summary>
+          <div class="faq-a">Our research answers and summaries are grounded in published clinical evidence and established tapering guidance (including the Ashton Method for benzodiazepines), with sources cited. That said, TaperX is an educational and planning tool — always confirm any change to your medication with a qualified healthcare provider.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Can I talk to a coach before the app launches?</summary>
+          <div class="faq-a">Yes — coaching is available right now. You can book a one-on-one session today to build or review your tapering plan, even though the app itself is still in development and won't be ready when you book. A first consultation is $149 (60 min), with shorter follow-ups at $95 (30 min) and $50 (15 min) once you have a plan underway.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary class="faq-q">Could TaperX prescribe my medication too?</summary>
+          <div class="faq-a">It's one of the things we're exploring — pairing the app with a doctor who can prescribe and a compounding pharmacy that delivers your taper doses to your door. We've put that question in the waitlist survey because we want to build it only if it's genuinely useful to you.</div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── WAITLIST FORM (main) ─────────── -->
+  <section id="waitlist" class="waitlist-section" data-screen-label="Join the waitlist">
+    <div class="container">
+      <div class="waitlist-inner">
+        <div class="section-eyebrow" style="text-align:center;">Join the waitlist</div>
+        <h2 class="section-title" style="text-align:center; margin:0 auto 24px;">Help us <em>build it right.</em></h2>
+        <p class="body-large">Sign up for early access and a founding-member discount — then answer a few quick questions to help shape what TaperX becomes.</p>
+
+        <div class="form-card">
+          <form id="waitlist-form" novalidate>
+            <div class="field">
+              <label for="wl-name">Your name</label>
+              <input type="text" id="wl-name" name="name" placeholder="First and last name" required>
+            </div>
+            <div class="field">
+              <label for="wl-email">Email address</label>
+              <input type="email" id="wl-email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="survey">
+              <div class="survey-head">
+                <span class="survey-badge">5 quick questions</span>
+                <p>Optional, but it really helps. Your answers guide what we build first.</p>
+              </div>
+
+              <div class="survey-q">
+                <div class="survey-q-label"><span class="q-num">1</span>What would you pay per month for the TaperX app?</div>
+                <div class="opt-group">
+                  <label class="opt"><input type="radio" name="price" value="$5"><span>$5</span></label>
+                  <label class="opt"><input type="radio" name="price" value="$10"><span>$10</span></label>
+                  <label class="opt"><input type="radio" name="price" value="$25"><span>$25</span></label>
+                  <label class="opt"><input type="radio" name="price" value="$40"><span>$40</span></label>
+                </div>
+              </div>
+
+              <div class="survey-q">
+                <div class="survey-q-label"><span class="q-num">2</span>How important is being able to book a call with a TaperX coach?</div>
+                <div class="opt-group">
+                  <label class="opt"><input type="radio" name="coach_importance" value="Not important"><span>Not important</span></label>
+                  <label class="opt"><input type="radio" name="coach_importance" value="Nice to have"><span>Nice to have</span></label>
+                  <label class="opt"><input type="radio" name="coach_importance" value="Important"><span>Important</span></label>
+                  <label class="opt"><input type="radio" name="coach_importance" value="Essential"><span>Essential</span></label>
+                </div>
+              </div>
+
+              <div class="survey-q">
+                <div class="survey-q-label"><span class="q-num">3</span>Should we add a doctor who can prescribe your taper medication, plus a compounding pharmacy that delivers it to your door?</div>
+                <div class="opt-group">
+                  <label class="opt"><input type="radio" name="rx_pharmacy" value="Yes"><span>Yes</span></label>
+                  <label class="opt"><input type="radio" name="rx_pharmacy" value="No"><span>No</span></label>
+                </div>
+              </div>
+
+              <div class="survey-q">
+                <div class="survey-q-label"><span class="q-num">4</span>How important is a symptom tracker that measures how you feel and ties it to where you are in your taper?</div>
+                <div class="opt-group">
+                  <label class="opt"><input type="radio" name="tracker_importance" value="Not important"><span>Not important</span></label>
+                  <label class="opt"><input type="radio" name="tracker_importance" value="Nice to have"><span>Nice to have</span></label>
+                  <label class="opt"><input type="radio" name="tracker_importance" value="Important"><span>Important</span></label>
+                  <label class="opt"><input type="radio" name="tracker_importance" value="Essential"><span>Essential</span></label>
+                </div>
+              </div>
+
+              <div class="survey-q">
+                <div class="survey-q-label"><span class="q-num">5</span>What type of medication do you currently want to taper off?</div>
+                <div class="opt-group">
+                  <label class="opt"><input type="radio" name="medication" value="Weight loss meds"><span>Weight loss meds</span></label>
+                  <label class="opt"><input type="radio" name="medication" value="Depression meds (SSRIs)"><span>Depression meds (SSRIs, like Prozac)</span></label>
+                  <label class="opt"><input type="radio" name="medication" value="Anxiety meds (benzodiazepines)"><span>Anxiety meds (benzodiazepines, like Xanax)</span></label>
+                  <label class="opt"><input type="radio" name="medication" value="Other" id="med-other-radio"><span>Other</span></label>
+                </div>
+                <input type="text" id="med-other-text" name="medication_other" class="survey-text-input" placeholder="Tell us which medication" style="display:none;">
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="wl-notes">Anything else you'd like to share?</label>
+              <textarea id="wl-notes" name="notes" placeholder="Optional — tell us anything you think would help us build TaperX for you: your medication and dose, what's been hardest, features you'd love, questions you have…"></textarea>
+            </div>
+
+            <button type="submit" class="form-submit">Join the waitlist</button>
+            <p class="form-privacy">We'll only contact you about TaperX. Your information is private and never shared.</p>
+          </form>
+
+          <div class="form-success" id="form-success">
+            <div class="form-success-icon">✓</div>
+            <h3>You're on the list.</h3>
+            <p>Thank you. We'll be in touch as soon as TaperX is available in your area — and you'll be among the first to know when we launch in late 2026.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────── FOOTER ─────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <div class="footer-logo">Taper<em>X</em></div>
+          <span class="footer-meta">© 2026 TaperX Inc. All rights reserved.</span>
+        </div>
+        <div class="footer-links">
+          <a href="#how">The app</a>
+          <a href="#meds">What you can taper</a>
+          <a href="#faq">FAQ</a>
+          <a href="mailto:hello@taperx.com">Contact</a>
+        </div>
+      </div>
+      <div class="footer-disclaimer">
+        TaperX is a mobile app launching in late 2026. The information on this site and in the app is for educational and planning purposes and is not medical advice. Do not change or stop any prescribed medication without consulting a qualified healthcare provider. TaperX is designed to work alongside your existing care team, not to replace it. If you are experiencing a medical emergency, call 911 or your local emergency number.
+      </div>
+    </div>
+  </footer>
+
+  <!-- ─────────── TWEAKS (hero variant + accent) ─────────── -->
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <div id="tweaks-mount"></div>
+  <script type="text/babel">
+    const TX_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "hero": "1",
+      "accent": "coral"
+    }/*EDITMODE-END*/;
+
+    function TaperXTweaks() {
+      const [tweaks, setTweak] = useTweaks(TX_DEFAULTS);
+
+      React.useEffect(() => {
+        document.body.setAttribute('data-hero', tweaks.hero);
+      }, [tweaks.hero]);
+      React.useEffect(() => {
+        document.body.setAttribute('data-accent', tweaks.accent);
+      }, [tweaks.accent]);
+
+      return (
+        <TweaksPanel title="Tweaks">
+          <TweakSection title="Hero layout">
+            <TweakRadio
+              value={tweaks.hero}
+              onChange={v => setTweak('hero', v)}
+              options={[
+                { value: '1', label: 'Split' },
+                { value: '2', label: 'Centered' },
+              ]}
+            />
+          </TweakSection>
+          <TweakSection title="Highlight accent">
+            <TweakRadio
+              value={tweaks.accent}
+              onChange={v => setTweak('accent', v)}
+              options={[
+                { value: 'coral', label: 'Coral' },
+                { value: 'green', label: 'Pine' },
+              ]}
+            />
+          </TweakSection>
+        </TweaksPanel>
+      );
+    }
+
+    const tweaksMount = document.getElementById('tweaks-mount');
+    if (tweaksMount) {
+      ReactDOM.createRoot(tweaksMount).render(<TaperXTweaks />);
+    }
+  </script>
+
+  <!-- ─────────── WAITLIST FORM SUBMISSION ─────────── -->
+  <script>
+    // ──────────────────────────────────────────────────────────────
+    // WAITLIST FORM HANDLER
+    //
+    // For now, submissions are saved to the browser's localStorage
+    // (visible via Dev Tools → Application → Local Storage).
+    //
+    // To wire up a real backend, the easiest path is Formspree:
+    //   1. Sign up at https://formspree.io (free tier supports 50 submissions/mo)
+    //   2. Create a new form and copy its endpoint URL (looks like:
+    //      https://formspree.io/f/xxxxxxxx)
+    //   3. Paste it below in FORMSPREE_ENDPOINT.
+    //
+    // Set FORMSPREE_ENDPOINT to a real URL and the form will start
+    // emailing you every signup automatically.
+    // ──────────────────────────────────────────────────────────────
+    const FORMSPREE_ENDPOINT = ''; // ← paste your Formspree URL here
+
+    // ──────────────────────────────────────────────────────────────
+    // COACH BOOKING LINK
+    // The "Book" buttons currently open an email to coaching@taperx.com.
+    // To use a real scheduler instead (Calendly, Cliniko, Acuity…),
+    // paste its URL below and every Book button will point to it.
+    // ──────────────────────────────────────────────────────────────
+    const COACH_BOOKING_URL = '';
+    if (COACH_BOOKING_URL) {
+      document.querySelectorAll('.coach-book').forEach(a => {
+        a.href = COACH_BOOKING_URL;
+        a.target = '_blank';
+        a.rel = 'noopener';
+      });
+    }
+
+    const mainForm = document.getElementById('waitlist-form');
+    const successPanel = document.getElementById('form-success');
+
+    // Reveal the free-text box when "Other" medication is chosen
+    const medOtherText = document.getElementById('med-other-text');
+    if (medOtherText) {
+      document.querySelectorAll('input[name="medication"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+          const isOther = document.getElementById('med-other-radio').checked;
+          medOtherText.style.display = isOther ? 'block' : 'none';
+          if (isOther) medOtherText.focus();
+        });
+      });
+    }
+
+    async function handleSubmit(formData, isMini) {
+      const payload = {
+        name: formData.name,
+        email: formData.email,
+        medication: (formData.medication === 'Other' && formData.medication_other)
+          ? ('Other: ' + formData.medication_other)
+          : (formData.medication || '(not answered)'),
+        price: formData.price || '(not answered)',
+        coach_importance: formData.coach_importance || '(not answered)',
+        rx_pharmacy: formData.rx_pharmacy || '(not answered)',
+        tracker_importance: formData.tracker_importance || '(not answered)',
+        notes: formData.notes ? formData.notes.trim() : '(none)',
+        source: isMini ? 'hero-mini-form' : 'main-form',
+        timestamp: new Date().toISOString(),
+      };
+
+      try {
+        const stored = JSON.parse(localStorage.getItem('taperx_waitlist') || '[]');
+        stored.push(payload);
+        localStorage.setItem('taperx_waitlist', JSON.stringify(stored));
+        console.log('Waitlist signup saved to localStorage:', payload);
+      } catch (e) {
+        console.warn('Could not save to localStorage:', e);
+      }
+
+      if (FORMSPREE_ENDPOINT) {
+        try {
+          await fetch(FORMSPREE_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+        } catch (e) {
+          console.warn('Formspree submission failed:', e);
+        }
+      }
+    }
+
+    if (mainForm) {
+      mainForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fd = new FormData(mainForm);
+        const data = Object.fromEntries(fd.entries());
+        if (!data.name || !data.email) return;
+        await handleSubmit(data, false);
+        mainForm.style.display = 'none';
+        successPanel.classList.add('active');
+      });
+    }
+
+    document.querySelectorAll('[data-mini-form]').forEach(form => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const fd = new FormData(form);
+        const data = Object.fromEntries(fd.entries());
+        if (!data.name || !data.email) return;
+        await handleSubmit(data, true);
+        document.getElementById('wl-name').value = data.name;
+        document.getElementById('wl-email').value = data.email;
+        document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
+
+</body>
+</html>
