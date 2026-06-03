@@ -615,6 +615,7 @@
 
   /* ─────────── MEET TAPERX (mascot) ─────────── */
   .mascot-section { background: var(--green-tint); }
+  .mascot-intro { max-width: 760px; margin-bottom: 56px; }
   .mascot-grid {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
@@ -626,12 +627,101 @@
     border-radius: 28px;
     overflow: hidden;
     aspect-ratio: 1 / 1;
+    width: 100%;
+    max-width: 440px;
     background: radial-gradient(120% 120% at 30% 20%, var(--green-bg) 0%, var(--coral-bg) 100%);
     display: flex; align-items: flex-end; justify-content: center;
     box-shadow: var(--shadow);
   }
   .mascot-img-wrap img { width: 88%; height: auto; }
   .mascot-grid strong { color: var(--green); font-weight: 700; }
+
+  .coach-persona {
+    margin-top: 0;
+  }
+  .coach-persona h3 {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .persona-scales {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 22px 0 18px;
+  }
+  .persona-scale {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    border-radius: 100px;
+    padding: 11px 18px;
+    box-shadow: var(--shadow-sm);
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .persona-scale span:first-child { text-align: right; }
+  .persona-vs {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--coral-d);
+    background: var(--coral-bg);
+    padding: 4px 11px;
+    border-radius: 100px;
+  }
+  .persona-goal {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: var(--green);
+    color: var(--cream2);
+    border-radius: 16px;
+    padding: 16px 18px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  .persona-goal svg { flex-shrink: 0; color: var(--coral); margin-top: 2px; }
+  .persona-goal b { color: #fff; font-weight: 700; }
+
+  .rex-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 22px 0 20px;
+  }
+  .rex-tile {
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .rex-tile:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .rex-tile img { width: 100%; display: block; aspect-ratio: 5 / 6; object-fit: cover; object-position: center top; }
+  .rex-tile span {
+    display: block;
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--ink-soft);
+    padding: 9px 6px;
+    border-top: 1px solid var(--line-soft);
+  }
+  @media (max-width: 540px) {
+    .rex-gallery { grid-template-columns: repeat(3, 1fr); gap: 9px; }
+    .rex-tile span { font-size: 11px; padding: 7px 4px; }
+  }
 
   /* ─────────── FAQ ─────────── */
   .faq-list {
@@ -1221,7 +1311,7 @@
               <div class="ai-avatar">RT</div>
               <div>
                 <div class="ai-name">Rex Taper</div>
-                <div class="ai-status">● Your TaperX assistant</div>
+                <div class="ai-status">● Your TaperX AI Coach</div>
               </div>
             </div>
             <div class="ai-bubble">Rough morning? It's Rex — let's slow your next step down a little. You're still right on track.</div>
@@ -1283,7 +1373,7 @@
           </div>
           <div class="empathy-stat">
             <div class="empathy-num">6–18</div>
-            <div class="empathy-label">Months is the typical safe taper window for benzodiazepines — longer than most doctors will manage.</div>
+            <div class="empathy-label">Months is the typical safe taper window for many long-term medications — longer than most doctors will manage.</div>
           </div>
         </div>
       </div>
@@ -1312,7 +1402,7 @@
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 5.5A1.5 1.5 0 015.5 4H12v15H5.5A1.5 1.5 0 014 17.5v-12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M20 5.5A1.5 1.5 0 0018.5 4H12v15h6.5a1.5 1.5 0 001.5-1.5v-12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
           </div>
           <div class="feat-title">Answers from verified sources</div>
-          <div class="feat-body">Ask Rex, your TaperX assistant, any question and get an answer grounded in real clinical research and evidence-based guidance — with the sources cited, so you can trust where it came from.</div>
+          <div class="feat-body">Ask Rex, your TaperX AI Coach, any question and get an answer grounded in real clinical research and evidence-based guidance — with the sources cited, so you can trust where it came from.</div>
         </div>
 
         <div class="feat">
@@ -1419,14 +1509,13 @@
     <div class="container">
       <div class="section-eyebrow">What you can taper</div>
       <h2 class="section-title">Built for the prescriptions that are hardest to stop.</h2>
-      <p class="body-large">We're starting with benzodiazepines — where the need is most acute and the gap in support is widest. More medication types follow.</p>
+      <p class="body-large">Whatever you're coming off, TaperX is built to support it — across the medication types where the need is most acute and the gap in support is widest.</p>
 
       <div class="meds-grid">
 
-        <div class="med-card featured">
+        <div class="med-card">
           <div class="med-name">Benzodiazepines</div>
           <div class="med-examples">Xanax · Klonopin · Ativan · Valium</div>
-          <span class="med-tag">Available at launch</span>
         </div>
 
         <div class="med-card">
@@ -1506,16 +1595,41 @@
   <!-- ─────────── MEET TAPERX (mascot) ─────────── -->
   <section class="mascot-section" data-screen-label="Meet TaperX">
     <div class="container">
+      <div class="mascot-intro">
+        <div class="section-eyebrow">Meet TaperX</div>
+        <h2 class="section-title" style="font-size: clamp(32px, 3.8vw, 48px);">A guide for a journey no one prepared you for.</h2>
+        <p class="body-large" style="margin-bottom:22px;">When our founder tried to come off Klonopin that he'd been prescribed for 10 years, no program existed. No protocol. No support. Just doctors who didn't know how to help and rehab centers built for the wrong problem.</p>
+        <p class="body-large">TaperX is what he wished had existed — a program built by patients, for patients, backed by clinical evidence, guided by AI, and grounded in one simple belief: <strong>every prescription should have an off-ramp.</strong></p>
+      </div>
+
       <div class="mascot-grid">
         <div class="mascot-img-wrap">
           <img src="taperx-character.svg" alt="The TaperX character — your guide through coming off your prescription">
         </div>
 
         <div>
-          <div class="section-eyebrow">Meet TaperX</div>
-          <h2 class="section-title" style="font-size: clamp(32px, 3.8vw, 48px);">A guide for a journey no one prepared you for.</h2>
-          <p class="body-large" style="margin-bottom:22px;">When our founder tried to come off the Xanax he'd been prescribed for 14 years, no program existed. No protocol. No support. Just doctors who didn't know how to help and rehab centers built for the wrong problem.</p>
-          <p class="body-large">TaperX is what he wished had existed — a program built by patients, for patients, backed by clinical evidence, guided by AI, and grounded in one simple belief: <strong>every prescription should have an off-ramp.</strong></p>
+          <div class="coach-persona">
+            <h3>Make Rex your own.</h3>
+            <p class="body-large" style="font-size:17px;">Shape the look <em style="font-style:normal;color:var(--green);font-weight:700;">and</em> the personality of your TaperX AI Coach, so the support feels right for you. Want someone who listens gently — or someone who pushes? You decide.</p>
+
+            <div class="persona-scales">
+              <div class="persona-scale">
+                <span>Empathetic &amp; listening</span>
+                <span class="persona-vs">or</span>
+                <span>Direct &amp; questioning</span>
+              </div>
+              <div class="persona-scale">
+                <span>Holds you accountable</span>
+                <span class="persona-vs">or</span>
+                <span>Goes easy on you</span>
+              </div>
+            </div>
+
+            <div class="persona-goal">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5L19 19M19 5l-2.5 2.5M7.5 16.5L5 19" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.7"/></svg>
+              <span>Every coach style shares one goal: <b>helping you successfully and safely withdraw from your prescribed medication.</b></span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1531,12 +1645,7 @@
 
         <details class="faq-item" open>
           <summary class="faq-q">When does TaperX launch?</summary>
-          <div class="faq-a">We're aiming for a late 2026 launch, starting with support for benzodiazepines. Waitlist members get first access, a say in what we build, and a founding-member discount.</div>
-        </details>
-
-        <details class="faq-item">
-          <summary class="faq-q">What medications will the app support at launch?</summary>
-          <div class="faq-a">At launch we'll focus on benzodiazepines (Xanax, Klonopin, Ativan, Valium, and others). Additional categories — GLP-1s, antidepressants, hormone therapy, and heart medications — will follow based on demand from the waitlist.</div>
+          <div class="faq-a">We're aiming for a late 2026 launch. Waitlist members get first access, a say in what we build, and a founding-member discount.</div>
         </details>
 
         <details class="faq-item">
@@ -1561,7 +1670,7 @@
 
         <details class="faq-item">
           <summary class="faq-q">Is the information safe to rely on?</summary>
-          <div class="faq-a">Our research answers and summaries are grounded in published clinical evidence and established tapering guidance (including the Ashton Method for benzodiazepines), with sources cited. That said, TaperX is an educational and planning tool — always confirm any change to your medication with a qualified healthcare provider.</div>
+          <div class="faq-a">Our research answers and summaries are grounded in published clinical evidence and established tapering guidance, with sources cited. That said, TaperX is an educational and planning tool — always confirm any change to your medication with a qualified healthcare provider.</div>
         </details>
 
         <details class="faq-item">
