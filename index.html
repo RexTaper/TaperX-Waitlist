@@ -928,6 +928,228 @@
     padding: 4px 11px; border-radius: 100px;
   }
 
+  /* ─────────── APP STAGE (cards → phone animation) ─────────── */
+  .app-stage {
+    position: relative;
+    margin-top: 56px;
+    transition: height 0.85s cubic-bezier(0.7, 0, 0.2, 1);
+  }
+  .app-stage .features { margin-top: 0; }
+  .app-stage.collapsed .features { pointer-events: none; }
+  .app-stage .feat {
+    transition: transform 0.95s cubic-bezier(0.66, 0, 0.2, 1),
+                opacity 0.6s ease, box-shadow 0.2s ease;
+    will-change: transform, opacity;
+  }
+  .app-stage.collapsed .feat { opacity: 0; }
+  .app-stage.collapsed .feat:hover { transform: var(--fly, none); }
+
+  /* The phone that everything collapses into */
+  .app-phone {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 290px;
+    transform: translateX(-50%) scale(0.8);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.55s ease 0.4s,
+                transform 0.85s cubic-bezier(0.34, 1.32, 0.5, 1) 0.35s;
+    z-index: 3;
+  }
+  .app-stage.collapsed .app-phone {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    pointer-events: auto;
+  }
+  .app-phone-body {
+    position: relative;
+    background: #0c1411;
+    border-radius: 50px;
+    padding: 12px;
+    box-shadow:
+      0 2px 5px rgba(27,43,37,0.12),
+      0 40px 80px -34px rgba(27,43,37,0.6),
+      inset 0 0 0 2px rgba(255,255,255,0.06);
+  }
+  .app-phone-body::before {
+    content: '';
+    position: absolute;
+    top: 24px; left: 50%; transform: translateX(-50%);
+    width: 92px; height: 28px;
+    background: #0c1411;
+    border-radius: 100px;
+    z-index: 4;
+  }
+  .app-phone-screen {
+    position: relative;
+    background: var(--cream2);
+    border-radius: 38px;
+    overflow: hidden;
+    height: 560px;
+    touch-action: pan-y;
+    cursor: grab;
+  }
+  .app-phone-screen:active { cursor: grabbing; }
+  .app-status {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 24px 4px;
+    font-size: 12.5px; font-weight: 700; color: var(--ink);
+    position: relative; z-index: 2;
+  }
+  .app-status-icons { display: flex; align-items: center; gap: 5px; }
+
+  .app-track {
+    display: flex;
+    height: calc(100% - 38px);
+    transition: transform 0.5s cubic-bezier(0.5, 0, 0.2, 1);
+    will-change: transform;
+  }
+  .app-track.dragging { transition: none; }
+  .app-screen {
+    flex: 0 0 100%;
+    height: 100%;
+    padding: 14px 22px 22px;
+    display: flex;
+    flex-direction: column;
+  }
+  .scr-bar {
+    display: flex; align-items: center; gap: 9px; margin-bottom: 18px;
+  }
+  .scr-bar .app-logo { font-size: 17px; font-weight: 800; letter-spacing: -0.03em; color: var(--green); }
+  .scr-bar .app-logo em { font-style: normal; color: var(--coral); }
+  .scr-bar .scr-tab { margin-left: auto; font-size: 11.5px; font-weight: 700; color: var(--muted); }
+  .scr-icon {
+    width: 46px; height: 46px;
+    border-radius: 14px;
+    background: var(--green-bg);
+    color: var(--green);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .scr-title {
+    font-size: 19px; font-weight: 800; letter-spacing: -0.025em;
+    color: var(--ink); line-height: 1.2; margin-bottom: 8px;
+  }
+  .scr-body {
+    font-size: 13px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 16px;
+  }
+  .scr-mock { margin-top: auto; display: flex; flex-direction: column; gap: 9px; }
+  .scr-card {
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    border-radius: 13px;
+    padding: 12px 13px;
+    box-shadow: var(--shadow-sm);
+    font-size: 12.5px; color: var(--ink); line-height: 1.4;
+  }
+  .scr-card .lbl { font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 3px; }
+  .scr-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .scr-dose { font-weight: 700; color: var(--green); }
+  .scr-bubble {
+    max-width: 84%; padding: 9px 12px; border-radius: 14px; font-size: 12.5px; line-height: 1.4;
+  }
+  .scr-bubble.them { align-self: flex-start; background: var(--white); border: 1px solid var(--line-soft); border-bottom-left-radius: 4px; color: var(--ink); }
+  .scr-bubble.you  { align-self: flex-end; background: var(--green); color: var(--cream2); border-bottom-right-radius: 4px; }
+  .scr-pill {
+    display: inline-block; font-size: 10.5px; font-weight: 700; color: var(--green);
+    background: var(--coral); padding: 3px 10px; border-radius: 100px;
+  }
+  .scr-coach {
+    display: flex; align-items: center; gap: 11px;
+    background: var(--green); color: var(--cream2); border-radius: 14px; padding: 13px;
+  }
+  .scr-coach .av { width: 38px; height: 38px; border-radius: 50%; background: rgba(247,242,233,0.18); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 14px; flex-shrink: 0; }
+  .scr-coach .nm { font-size: 13px; font-weight: 700; color: #fff; }
+  .scr-coach .sub { font-size: 11px; color: rgba(247,242,233,0.8); }
+
+  .app-home {
+    position: absolute;
+    bottom: 8px; left: 50%; transform: translateX(-50%);
+    width: 110px; height: 5px; border-radius: 100px;
+    background: rgba(27,43,37,0.28); z-index: 4;
+  }
+
+  /* Dots + hint below the phone */
+  .app-pager {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    opacity: 0;
+    transition: opacity 0.5s ease 0.7s;
+  }
+  .app-stage.collapsed .app-pager { opacity: 1; }
+  .app-dots { display: flex; gap: 8px; }
+  .app-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(27,43,37,0.18); border: none; padding: 0; cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .app-dot.active { background: var(--green); transform: scale(1.25); }
+  .app-hint {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: var(--muted);
+  }
+  .app-hint svg { animation: swipeNudge 1.8s ease-in-out infinite; }
+  @keyframes swipeNudge {
+    0%, 100% { transform: translateX(-3px); }
+    50% { transform: translateX(3px); }
+  }
+
+  /* Descriptive copy panel beside the phone */
+  .app-info {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: min(340px, 100%);
+    transform: translateX(-50%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease 0.55s;
+    display: flex;
+    align-items: center;
+    z-index: 3;
+  }
+  .app-stage.collapsed .app-info { opacity: 1; pointer-events: auto; }
+  .app-stage.side.collapsed .app-phone { transform: translateX(calc(-50% - 195px)) scale(1); }
+  .app-stage.side .app-info { transform: translateX(calc(-50% + 165px)); width: 320px; }
+  .app-info-card {
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    border-radius: 22px;
+    padding: 32px;
+    box-shadow: var(--shadow);
+    width: 100%;
+  }
+  .app-info-step {
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--coral-d); margin-bottom: 14px;
+  }
+  .app-info-title {
+    font-size: 25px; font-weight: 800;
+    letter-spacing: -0.03em; color: var(--ink);
+    line-height: 1.14; margin-bottom: 13px;
+  }
+  .app-info-body {
+    font-size: 16px; color: var(--ink-soft); line-height: 1.6;
+  }
+  @keyframes infoSwap {
+    from { opacity: 0; transform: translateY(9px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .app-info-card.swap { animation: infoSwap 0.36s ease; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .app-stage .feat, .app-phone, .app-track, .app-pager, .app-info { transition: none !important; }
+    .app-hint svg { animation: none; }
+    .app-info-card.swap { animation: none; }
+  }
+  @media (max-width: 600px) {
+    .app-phone { width: 260px; }
+    .app-phone-screen { height: 510px; }
+  }
+
   /* ─────────── SYMPTOM TRACKER ─────────── */
   .tracker-grid {
     display: grid;
@@ -963,19 +1185,74 @@
     margin-top: 1px;
   }
 
-  /* The mock tracker panel */
+  /* The mock tracker panel — inside an iPhone */
+  .phone-wrap { display: flex; justify-content: center; }
+  .phone {
+    position: relative;
+    width: 300px;
+    background: #0c1411;
+    border-radius: 52px;
+    padding: 13px;
+    box-shadow:
+      0 2px 5px rgba(27,43,37,0.12),
+      0 34px 70px -30px rgba(27,43,37,0.55),
+      inset 0 0 0 2px rgba(255,255,255,0.06);
+  }
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 26px; left: 50%; transform: translateX(-50%);
+    width: 96px; height: 30px;
+    background: #0c1411;
+    border-radius: 100px;
+    z-index: 4;
+  }
+  .phone-screen {
+    position: relative;
+    background: var(--cream2);
+    border-radius: 40px;
+    overflow: hidden;
+    height: 600px;
+  }
+  .phone-status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 26px 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .phone-status-icons { display: flex; align-items: center; gap: 6px; }
+  .phone-status-icons svg { display: block; }
+  .phone-appbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 22px 14px;
+  }
+  .phone-appbar .app-logo {
+    font-size: 18px; font-weight: 800; letter-spacing: -0.03em; color: var(--green);
+  }
+  .phone-appbar .app-logo em { font-style: normal; color: var(--coral); }
+  .phone-appbar .app-tab { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--muted); }
   .tracker-panel {
-    background: var(--white);
-    border: 1px solid var(--line-soft);
-    border-radius: 26px;
-    padding: 28px;
-    box-shadow: var(--shadow);
+    background: transparent;
+    padding: 4px 22px 22px;
+  }
+  .phone-home {
+    position: absolute;
+    bottom: 9px; left: 50%; transform: translateX(-50%);
+    width: 118px; height: 5px;
+    border-radius: 100px;
+    background: rgba(27,43,37,0.28);
+    z-index: 4;
   }
   .tracker-panel-head {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
   }
   .tracker-panel-title { font-size: 17px; font-weight: 700; color: var(--ink); letter-spacing: -0.02em; }
   .tracker-panel-day { font-size: 13px; font-weight: 600; color: var(--muted); }
@@ -983,13 +1260,13 @@
   .tracker-row {
     display: flex;
     align-items: center;
-    gap: 14px;
-    padding: 13px 0;
+    gap: 12px;
+    padding: 12px 0;
     border-top: 1px solid var(--line-soft);
   }
-  .tracker-row-name { font-size: 14.5px; font-weight: 600; color: var(--ink); flex: 1; }
+  .tracker-row-name { font-size: 14px; font-weight: 600; color: var(--ink); flex: 1; }
   .sev-bar {
-    width: 96px;
+    width: 70px;
     height: 7px;
     border-radius: 100px;
     background: var(--green-tint);
@@ -1001,20 +1278,20 @@
   .sev-mid    { width: 58%; background: #e6a23c; }
   .sev-high   { width: 84%; background: var(--coral-d); }
   .sev-label {
-    font-size: 12px; font-weight: 700;
-    width: 54px; text-align: right; flex-shrink: 0;
+    font-size: 11.5px; font-weight: 700;
+    width: 48px; text-align: right; flex-shrink: 0;
   }
   .sev-label.low  { color: var(--green-mid); }
   .sev-label.mid  { color: #c4801f; }
   .sev-label.high { color: var(--coral-d); }
 
   .tracker-insight {
-    margin-top: 22px;
+    margin-top: 18px;
     background: var(--green);
     border-radius: 16px;
-    padding: 16px 18px;
+    padding: 15px 16px;
     display: flex;
-    gap: 13px;
+    gap: 12px;
     align-items: flex-start;
   }
   .tracker-insight-icon {
@@ -1025,7 +1302,7 @@
     color: var(--coral);
     display: flex; align-items: center; justify-content: center;
   }
-  .tracker-insight-text { font-size: 13.5px; line-height: 1.5; color: rgba(247,242,233,0.92); }
+  .tracker-insight-text { font-size: 13px; line-height: 1.5; color: rgba(247,242,233,0.92); }
   .tracker-insight-text b { color: #fff; font-weight: 700; }
 
   .tracker-count {
@@ -1387,6 +1664,7 @@
       <h2 class="section-title">Everything you need to taper, in one place.</h2>
       <p class="body-large">No cold turkey. No piecing it together from scattered forum threads at 2am. TaperX brings the plan, the research, the community, and a real coach together — so you're never doing this alone.</p>
 
+      <div class="app-stage" id="appStage">
       <div class="features">
 
         <div class="feat">
@@ -1439,6 +1717,118 @@
         </div>
 
       </div>
+
+      <!-- Phone everything collapses into -->
+      <div class="app-phone" id="appPhone" role="group" aria-label="TaperX app preview">
+        <div class="app-phone-body">
+          <div class="app-phone-screen">
+            <div class="app-status">
+              <span>9:41</span>
+              <span class="app-status-icons">
+                <svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x="0" y="6" width="3" height="5" rx="1" fill="currentColor"/><rect x="4.5" y="4" width="3" height="7" rx="1" fill="currentColor"/><rect x="9" y="2" width="3" height="9" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+                <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M8 2.5C10.3 2.5 12.4 3.4 14 4.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M3 7.4C4.4 6.1 6.1 5.4 8 5.4s3.6.7 5 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="9.6" r="1.2" fill="currentColor"/></svg>
+                <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.6" y="0.6" width="21" height="10.8" rx="3" stroke="currentColor" stroke-opacity="0.5" stroke-width="1"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><rect x="23" y="4" width="1.6" height="4" rx="0.8" fill="currentColor" fill-opacity="0.5"/></svg>
+              </span>
+            </div>
+
+            <div class="app-track" id="appTrack">
+
+              <!-- 1 · Taper program -->
+              <div class="app-screen">
+                <div class="scr-bar"><span class="app-logo">Taper<em>X</em></span><span class="scr-tab">My plan</span></div>
+                <div class="scr-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 18h6M4 12h10M4 6h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="17" cy="18" r="3" stroke="currentColor" stroke-width="1.8"/></svg></div>
+                <div class="scr-title">A custom taper program</div>
+                <div class="scr-body">A step-down schedule built around your medication, dose, and timeline — adjust the pace anytime.</div>
+                <div class="scr-mock">
+                  <div class="scr-card"><div class="scr-row"><span><span class="lbl">This week</span>Step 4 of 11</span><span class="scr-dose">2.0 mg</span></div></div>
+                  <div class="scr-card"><div class="scr-row"><span><span class="lbl">Next step</span>In 6 days</span><span class="scr-dose">1.75 mg</span></div></div>
+                </div>
+              </div>
+
+              <!-- 2 · Ask Rex -->
+              <div class="app-screen">
+                <div class="scr-bar"><span class="app-logo">Taper<em>X</em></span><span class="scr-tab">Ask Rex</span></div>
+                <div class="scr-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 5.5A1.5 1.5 0 015.5 4H12v15H5.5A1.5 1.5 0 014 17.5v-12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M20 5.5A1.5 1.5 0 0018.5 4H12v15h6.5a1.5 1.5 0 001.5-1.5v-12z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+                <div class="scr-title">Answers from verified sources</div>
+                <div class="scr-body">Ask anything and get a researched answer — with the sources cited.</div>
+                <div class="scr-mock">
+                  <div class="scr-bubble you">Is the headache normal at this dose?</div>
+                  <div class="scr-bubble them">Common at this stage — and it usually eases. Here's what the research says…</div>
+                </div>
+              </div>
+
+              <!-- 3 · Summaries -->
+              <div class="app-screen">
+                <div class="scr-bar"><span class="app-logo">Taper<em>X</em></span><span class="scr-tab">Learn</span></div>
+                <div class="scr-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+                <div class="scr-title">Plain-language summaries</div>
+                <div class="scr-body">The key topics distilled into clear reads — no jargon, no rabbit holes.</div>
+                <div class="scr-mock">
+                  <div class="scr-card"><span class="lbl">5 min read</span>What to expect in month one</div>
+                  <div class="scr-card"><span class="lbl">4 min read</span>Why slower is usually safer</div>
+                </div>
+              </div>
+
+              <!-- 4 · Community -->
+              <div class="app-screen">
+                <div class="scr-bar"><span class="app-logo">Taper<em>X</em></span><span class="scr-tab">Community</span></div>
+                <div class="scr-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 6a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H9l-5 4V6z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+                <div class="scr-title">Wisdom from the community</div>
+                <div class="scr-body">The best Q&amp;A from Facebook groups, Reddit, and forums — gathered and searchable.</div>
+                <div class="scr-mock">
+                  <div class="scr-card"><span class="lbl">218 replies</span>"How did you handle the sleep changes?"</div>
+                  <div class="scr-card"><span class="lbl">96 replies</span>"What helped your taper stick?"</div>
+                </div>
+              </div>
+
+              <!-- 5 · Coach -->
+              <div class="app-screen">
+                <div class="scr-bar"><span class="app-logo">Taper<em>X</em></span><span class="scr-tab">Coaching</span></div>
+                <div class="scr-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 18v-5a7 7 0 0114 0v5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><rect x="3" y="14" width="4" height="6" rx="2" stroke="currentColor" stroke-width="1.8"/><rect x="17" y="14" width="4" height="6" rx="2" stroke="currentColor" stroke-width="1.8"/></svg></div>
+                <div class="scr-title">Talk to a TaperX coach</div>
+                <div class="scr-body">Want a human in your corner? Book a one-on-one session — available today.</div>
+                <div class="scr-mock">
+                  <div class="scr-coach"><span class="av">RT</span><span><span class="nm">Book a coach</span><span class="sub">Next opening: Thursday 2:00 PM</span></span></div>
+                  <div style="text-align:center;"><span class="scr-pill">Available now</span></div>
+                </div>
+              </div>
+
+              <!-- 6 · All about you -->
+              <div class="app-screen">
+                <div class="scr-bar"><span class="app-logo">Taper<em>X</em></span><span class="scr-tab">Your profile</span></div>
+                <div class="scr-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="1.8"/><path d="M4 20c0-3.5 3.6-6 8-6s8 2.5 8 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></div>
+                <div class="scr-title">All about you</div>
+                <div class="scr-body">Tell Rex your story so every answer is shaped around your situation.</div>
+                <div class="scr-mock">
+                  <div class="scr-card"><span class="lbl">Medication</span>Klonopin · 1.5 mg / day</div>
+                  <div class="scr-card"><span class="lbl">Goal</span>Off fully, comfortably, by spring</div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="app-home"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="app-info">
+        <div class="app-info-card" id="appInfoCard">
+          <div class="app-info-step" id="appInfoStep">1 / 6</div>
+          <div class="app-info-title" id="appInfoTitle">A custom taper program</div>
+          <div class="app-info-body" id="appInfoBody">A step-down schedule built around your medication, dose, and timeline — including the small, precise reductions a standard pill bottle can't give you. Adjust the pace anytime as you go.</div>
+        </div>
+      </div>
+
+      <div class="app-pager">
+        <div class="app-dots" id="appDots"></div>
+        <span class="app-hint">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M8 7l-4 5 4 5M16 7l4 5-4 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Swipe or tap to explore
+        </span>
+      </div>
+
+      </div>
     </div>
   </section>
 
@@ -1468,36 +1858,57 @@
           </ul>
         </div>
 
-        <div class="tracker-panel" aria-hidden="true">
-          <div class="tracker-panel-head">
-            <div class="tracker-panel-title">Today's check-in</div>
-            <div class="tracker-panel-day">Week 6 · Day 3</div>
-          </div>
+        <div class="phone-wrap" aria-hidden="true">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="phone-status">
+                <span>9:41</span>
+                <span class="phone-status-icons">
+                  <svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x="0" y="6" width="3" height="5" rx="1" fill="currentColor"/><rect x="4.5" y="4" width="3" height="7" rx="1" fill="currentColor"/><rect x="9" y="2" width="3" height="9" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+                  <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M8 2.5C10.3 2.5 12.4 3.4 14 4.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M3 7.4C4.4 6.1 6.1 5.4 8 5.4s3.6.7 5 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="9.6" r="1.2" fill="currentColor"/></svg>
+                  <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.6" y="0.6" width="21" height="10.8" rx="3" stroke="currentColor" stroke-opacity="0.5" stroke-width="1"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><rect x="23" y="4" width="1.6" height="4" rx="0.8" fill="currentColor" fill-opacity="0.5"/></svg>
+                </span>
+              </div>
+              <div class="phone-appbar">
+                <span class="app-logo">Taper<em>X</em></span>
+                <span class="app-tab">Symptoms</span>
+              </div>
 
-          <div class="tracker-row">
-            <span class="tracker-row-name">Sleep disturbance</span>
-            <span class="sev-bar"><span class="sev-fill sev-high"></span></span>
-            <span class="sev-label high">High</span>
-          </div>
-          <div class="tracker-row">
-            <span class="tracker-row-name">Anxiety</span>
-            <span class="sev-bar"><span class="sev-fill sev-mid"></span></span>
-            <span class="sev-label mid">Medium</span>
-          </div>
-          <div class="tracker-row">
-            <span class="tracker-row-name">Brain fog</span>
-            <span class="sev-bar"><span class="sev-fill sev-mid"></span></span>
-            <span class="sev-label mid">Medium</span>
-          </div>
-          <div class="tracker-row">
-            <span class="tracker-row-name">Muscle tension</span>
-            <span class="sev-bar"><span class="sev-fill sev-low"></span></span>
-            <span class="sev-label low">Mild</span>
-          </div>
+              <div class="tracker-panel">
+                <div class="tracker-panel-head">
+                  <div class="tracker-panel-title">Today's check-in</div>
+                  <div class="tracker-panel-day">Week 6 · Day 3</div>
+                </div>
 
-          <div class="tracker-insight">
-            <span class="tracker-insight-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.6.6 1 1.3 1 2.1V16h6v-.4c0-.8.4-1.5 1-2.1A6 6 0 0012 3z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <div class="tracker-insight-text"><b>Sleep is trending up.</b> Many tapering this medication find a slower next step plus a consistent wind-down routine helps. Tap to see what's worked for others.</div>
+                <div class="tracker-row">
+                  <span class="tracker-row-name">Sleep disturbance</span>
+                  <span class="sev-bar"><span class="sev-fill sev-high"></span></span>
+                  <span class="sev-label high">High</span>
+                </div>
+                <div class="tracker-row">
+                  <span class="tracker-row-name">Anxiety</span>
+                  <span class="sev-bar"><span class="sev-fill sev-mid"></span></span>
+                  <span class="sev-label mid">Medium</span>
+                </div>
+                <div class="tracker-row">
+                  <span class="tracker-row-name">Brain fog</span>
+                  <span class="sev-bar"><span class="sev-fill sev-mid"></span></span>
+                  <span class="sev-label mid">Medium</span>
+                </div>
+                <div class="tracker-row">
+                  <span class="tracker-row-name">Muscle tension</span>
+                  <span class="sev-bar"><span class="sev-fill sev-low"></span></span>
+                  <span class="sev-label low">Mild</span>
+                </div>
+
+                <div class="tracker-insight">
+                  <span class="tracker-insight-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 00-4 10.5c.6.6 1 1.3 1 2.1V16h6v-.4c0-.8.4-1.5 1-2.1A6 6 0 0012 3z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <div class="tracker-insight-text"><b>Sleep is trending up.</b> Many tapering this medication find a slower next step plus a consistent wind-down routine helps. Tap to see what's worked for others.</div>
+                </div>
+              </div>
+
+              <div class="phone-home"></div>
+            </div>
           </div>
         </div>
 
@@ -1974,6 +2385,227 @@
         document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
       });
     });
+  </script>
+
+  <!-- ─────────── INSIDE-THE-APP: cards collapse into phone + carousel ─────────── -->
+  <script>
+  (function () {
+    const stage  = document.getElementById('appStage');
+    const phone  = document.getElementById('appPhone');
+    const track  = document.getElementById('appTrack');
+    const dotsEl = document.getElementById('appDots');
+    if (!stage || !phone || !track) return;
+
+    const info      = stage.querySelector('.app-info');
+    const infoCard  = document.getElementById('appInfoCard');
+    const infoStep  = document.getElementById('appInfoStep');
+    const infoTitle = document.getElementById('appInfoTitle');
+    const infoBody  = document.getElementById('appInfoBody');
+
+    // Full descriptive copy for each screen (shown beside the phone)
+    const DATA = [
+      { title: 'A custom taper program',
+        body: "A step-down schedule built around your medication, dose, and timeline \u2014 including the small, precise reductions a standard pill bottle can't give you. Adjust the pace anytime as you go." },
+      { title: 'Answers from verified sources',
+        body: 'Ask Rex, your TaperX AI Coach, any question and get an answer grounded in real clinical research and evidence-based guidance \u2014 with the sources cited, so you can trust where it came from.' },
+      { title: 'Plain-language summaries',
+        body: 'The most important topics \u2014 withdrawal, timelines, methods, what to expect \u2014 distilled into clear, readable summaries. The essentials, without the jargon or the rabbit holes.' },
+      { title: 'Wisdom from the community',
+        body: "The best questions and answers from Facebook groups, Reddit, and taper forums \u2014 gathered, organized, and searchable. Learn from thousands who've walked this road before you." },
+      { title: 'Talk to a TaperX coach',
+        body: "Want a human in your corner? Book time with a TaperX coach to review your plan, talk through symptoms, and answer the questions an app can't \u2014 and you can book one today, before the app launches." },
+      { title: 'All about you',
+        body: "No two tapers are the same. Tell Rex your story \u2014 your symptoms, why you started the medication, why you're coming off, what you've already tried \u2014 and every answer he gives is shaped around your situation, not a generic script." },
+    ];
+
+    const cards   = Array.from(stage.querySelectorAll('.feat'));
+    const screens = Array.from(track.children);
+    const count   = screens.length;
+    const reduce  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let collapsed = false;
+    let index = 0;
+
+    // Build pager dots
+    const dots = [];
+    for (let i = 0; i < count; i++) {
+      const b = document.createElement('button');
+      b.className = 'app-dot' + (i === 0 ? ' active' : '');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Show screen ' + (i + 1));
+      b.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(b);
+      dots.push(b);
+    }
+
+    function setStageHeight(px) { stage.style.height = px + 'px'; }
+
+    // Lock the stage to the grid's natural height so the absolute phone
+    // doesn't reserve extra space before the animation.
+    function sizeToGrid() {
+      if (collapsed) return;
+      const grid = stage.querySelector('.features');
+      setStageHeight(grid.offsetHeight);
+    }
+    requestAnimationFrame(sizeToGrid);
+    window.addEventListener('resize', sizeToGrid);
+
+    function setInfo(i) {
+      if (!infoCard) return;
+      infoStep.textContent = (i + 1) + ' / ' + count;
+      infoTitle.textContent = DATA[i].title;
+      infoBody.textContent = DATA[i].body;
+      infoCard.classList.remove('swap');
+      void infoCard.offsetWidth;
+      infoCard.classList.add('swap');
+    }
+
+    function goTo(i) {
+      index = (i + count) % count;
+      track.style.transform = 'translateX(' + (-index * 100) + '%)';
+      dots.forEach((d, di) => d.classList.toggle('active', di === index));
+      setInfo(index);
+    }
+
+    // Position the copy panel: beside the phone on wide screens, below it on narrow.
+    // Driven by inline styles so it does not depend on the .side/.collapsed cascade.
+    function layoutInfo() {
+      if (!collapsed) return;
+      const phoneH = phone.offsetHeight;
+      const wide = window.innerWidth >= 900;
+      info.style.opacity = '1';
+      if (wide) {
+        info.style.transform = 'translateX(calc(-50% + 165px))';
+        info.style.width = '320px';
+        info.style.top = '0px';
+        info.style.height = phoneH + 'px';
+        phone.style.transform = 'translateX(calc(-50% - 195px)) scale(1)';
+        setStageHeight(phoneH + 56);
+      } else {
+        info.style.transform = 'translateX(-50%)';
+        info.style.width = '';
+        info.style.height = '';
+        info.style.top = (phoneH + 24) + 'px';
+        phone.style.transform = 'translateX(-50%) scale(1)';
+        setStageHeight(phoneH + 24 + info.offsetHeight + 56);
+      }
+    }
+
+    function collapse() {
+      if (collapsed) return;
+      collapsed = true;
+      stage.classList.add('collapsed');
+
+      // Lock the stage's current height first so the shrink animates smoothly.
+      setStageHeight(stage.offsetHeight);
+      void stage.offsetWidth; // force reflow
+
+      // Measure phone centre (its box exists even while hidden).
+      const wide = window.innerWidth >= 900;
+      const pr = phone.getBoundingClientRect();
+      const pcx = pr.left + pr.width / 2 + (wide ? -195 : 0);
+      const pcy = pr.top + pr.height / 2;
+
+      cards.forEach((card, i) => {
+        const cr = card.getBoundingClientRect();
+        const dx = pcx - (cr.left + cr.width / 2);
+        const dy = pcy - (cr.top + cr.height / 2);
+        const fly = 'translate(' + dx + 'px,' + dy + 'px) scale(0.16)';
+        card.style.setProperty('--fly', fly);
+        card.style.transition = 'transform 0.95s cubic-bezier(0.66,0,0.2,1) ' + (i * 0.04) + 's, opacity 0.6s ease ' + (i * 0.04) + 's';
+        card.style.transform = fly;
+        card.style.opacity = '0';
+      });
+
+      // Reveal the phone + pager via inline styles (robust against the cascade).
+      phone.style.opacity = '1';
+      phone.style.transform = (wide ? 'translateX(calc(-50% - 195px))' : 'translateX(-50%)') + ' scale(1)';
+      const pager = stage.querySelector('.app-pager');
+      if (pager) pager.style.opacity = '1';
+
+      setInfo(0);
+      requestAnimationFrame(layoutInfo);
+
+      window.removeEventListener('resize', sizeToGrid);
+      window.removeEventListener('scroll', onScroll);
+      window.addEventListener('resize', layoutInfo);
+    }
+
+    function trigger() {
+      if (collapsed) return;
+      const r = stage.getBoundingClientRect();
+      if (r.top < window.innerHeight * 0.6 && r.bottom > window.innerHeight * 0.15) {
+        setTimeout(collapse, 900);
+        window.removeEventListener('scroll', onScroll);
+      }
+    }
+    function onScroll() { trigger(); }
+
+    if (reduce) {
+      // No motion: jump straight to the phone state.
+      collapse();
+    } else if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) { setTimeout(collapse, 900); io.disconnect(); }
+        });
+      }, { threshold: 0.25, rootMargin: '0px 0px -15% 0px' });
+      io.observe(stage);
+      // Fallback in case the observer never fires.
+      window.addEventListener('scroll', onScroll, { passive: true });
+      trigger();
+    } else {
+      window.addEventListener('scroll', onScroll, { passive: true });
+      trigger();
+    }
+
+    /* ---- Carousel interaction: swipe, drag, tap ---- */
+    const screenEl = phone.querySelector('.app-phone-screen');
+    let startX = 0, startY = 0, dragging = false, moved = false, locked = null;
+
+    function screenWidth() { return screenEl.getBoundingClientRect().width; }
+
+    screenEl.addEventListener('pointerdown', (e) => {
+      if (!collapsed) return;
+      dragging = true; moved = false; locked = null;
+      startX = e.clientX; startY = e.clientY;
+      track.classList.add('dragging');
+      screenEl.setPointerCapture(e.pointerId);
+    });
+
+    screenEl.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (locked === null && (Math.abs(dx) > 6 || Math.abs(dy) > 6)) {
+        locked = Math.abs(dx) > Math.abs(dy) ? 'x' : 'y';
+      }
+      if (locked === 'x') {
+        e.preventDefault();
+        if (Math.abs(dx) > 4) moved = true;
+        const pct = (dx / screenWidth()) * 100;
+        track.style.transform = 'translateX(' + (-index * 100 + pct) + '%)';
+      }
+    });
+
+    function endDrag(e) {
+      if (!dragging) return;
+      dragging = false;
+      track.classList.remove('dragging');
+      const dx = e.clientX - startX;
+      const threshold = screenWidth() * 0.18;
+      if (locked === 'x' && Math.abs(dx) > threshold) {
+        goTo(index + (dx < 0 ? 1 : -1));
+      } else if (!moved && locked !== 'y') {
+        // a plain tap advances to the next screen
+        goTo(index + 1);
+      } else {
+        goTo(index);
+      }
+    }
+    screenEl.addEventListener('pointerup', endDrag);
+    screenEl.addEventListener('pointercancel', () => { dragging = false; track.classList.remove('dragging'); goTo(index); });
+  })();
   </script>
 
 </body>
