@@ -150,10 +150,11 @@
   /* ─────────── HERO V1, split layout ─────────── */
   .hero-v1 .hero-grid {
     display: grid;
-    grid-template-columns: 1.08fr 1fr;
+    grid-template-columns: 1fr;
     gap: 72px;
     align-items: center;
   }
+  .hero-v1 .hero-lead { max-width: 760px; }
   .hero-v1 h1 {
     font-size: clamp(44px, 5.4vw, 72px);
     font-weight: 800;
@@ -634,6 +635,14 @@
     box-shadow: var(--shadow);
   }
   .mascot-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mascot-img-wrap .ai-card {
+    position: absolute;
+    z-index: 2;
+    left: 18px;
+    bottom: 18px;
+    right: auto;
+    width: min(260px, 72%);
+  }
   .mascot-grid strong { color: var(--green); font-weight: 700; }
 
   .coach-persona {
@@ -1564,12 +1573,12 @@
   <section class="hero hero-v1" data-screen-label="Hero (split)">
     <div class="container">
       <div class="hero-grid">
-        <div>
+        <div class="hero-lead">
           <div class="pill"><span class="pill-dot"></span>Now accepting waitlist applications</div>
 
-          <h1>Coming off your medication, with you every step.</h1>
+          <h1>Safely taper off a medication you no longer need.</h1>
 
-          <p class="hero-sub">TaperX is the app for safely tapering off a prescription you no longer need: a taper plan built around you, trusted research and an AI Coach at your fingertips, real answers from people who've done it, and a human coach when you want one. Launching late 2026.</p>
+          <p class="hero-sub">TaperX is the app that's with you every step of coming off your medication: a taper plan built around you, trusted research and an AI Coach at your fingertips, real answers from people who've done it, and a human coach when you want one. Launching late 2026.</p>
 
           <form class="hero-form" data-mini-form>
             <input type="text" name="name" placeholder="Your name" required>
@@ -1577,23 +1586,6 @@
             <button type="submit">Join waitlist</button>
           </form>
           <p class="hero-form-note">Takes 30 seconds. We'll ask a few quick questions to help shape the app. No spam, unsubscribe anytime.</p>
-        </div>
-
-        <div class="hero-character">
-          <div class="hero-art">
-            <img src="rex-taper-titled.png" alt="Rex Taper, your TaperX AI Coach">
-          </div>
-          <div class="ai-card">
-            <div class="ai-card-head">
-              <div class="ai-avatar">RT</div>
-              <div>
-                <div class="ai-name">Rex Taper</div>
-                <div class="ai-status">● Your TaperX AI Coach</div>
-              </div>
-            </div>
-            <div class="ai-bubble">Rough morning? It's Rex, let's slow your next step down a little. You're still right on track.</div>
-            <div class="ai-typing"><span></span><span></span><span></span></div>
-          </div>
         </div>
       </div>
     </div>
@@ -1962,6 +1954,11 @@
           <div class="med-examples">Gabapentin · Pregabalin</div>
         </div>
 
+        <div class="med-card">
+          <div class="med-name">Sleep</div>
+          <div class="med-examples">Ambien · Lunesta · Sonata · Restoril · Trazodone · Seroquel</div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -2015,7 +2012,7 @@
   <section class="mascot-section" data-screen-label="Meet TaperX">
     <div class="container">
       <div class="mascot-intro">
-        <div class="section-eyebrow">Meet TaperX</div>
+        <div class="section-eyebrow">Meet your AI Coach, Rex Taper</div>
         <h2 class="section-title" style="font-size: clamp(32px, 3.8vw, 48px);">A guide for a journey no one prepared you for.</h2>
         <p class="body-large" style="margin-bottom:22px;">When our founder tried to come off Klonopin that he'd been prescribed for 10 years, no program existed. No protocol. No support. Just doctors who didn't know how to help and rehab centers built for the wrong problem.</p>
         <p class="body-large">TaperX is what he wished had existed, a program built by patients, for patients, backed by clinical evidence, guided by AI, and grounded in one simple belief: <strong>every prescription should have an off-ramp.</strong></p>
@@ -2024,6 +2021,17 @@
       <div class="mascot-grid">
         <div class="mascot-img-wrap">
           <img src="rex-taper-titled.png" alt="Rex Taper, your TaperX AI Coach">
+          <div class="ai-card">
+            <div class="ai-card-head">
+              <div class="ai-avatar">RT</div>
+              <div>
+                <div class="ai-name">Rex Taper</div>
+                <div class="ai-status">● Your TaperX AI Coach</div>
+              </div>
+            </div>
+            <div class="ai-bubble">Rough morning? It's Rex, let's slow your next step down a little. You're still right on track.</div>
+            <div class="ai-typing"><span></span><span></span><span></span></div>
+          </div>
         </div>
 
         <div>
@@ -2180,6 +2188,7 @@
                   <label class="opt"><input type="checkbox" name="medication" value="Depression meds (SSRIs)"><span>Depression meds (SSRIs, like Prozac)</span></label>
                   <label class="opt"><input type="checkbox" name="medication" value="Anxiety meds (benzodiazepines)"><span>Anxiety meds (benzodiazepines, like Xanax)</span></label>
                   <label class="opt"><input type="checkbox" name="medication" value="Gabapentinoids (gabapentin, pregabalin)"><span>Gabapentinoids (gabapentin, pregabalin)</span></label>
+                  <label class="opt"><input type="checkbox" name="medication" value="Sleep meds"><span>Sleep meds (Ambien, Trazodone, Seroquel, etc.)</span></label>
                   <label class="opt"><input type="checkbox" name="medication" value="Other" id="med-other-radio"><span>Other</span></label>
                 </div>
                 <input type="text" id="med-other-text" name="medication_other" class="survey-text-input" placeholder="Tell us which medication" style="display:none;">
