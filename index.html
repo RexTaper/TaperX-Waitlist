@@ -150,11 +150,11 @@
   /* ─────────── HERO V1, split layout ─────────── */
   .hero-v1 .hero-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 72px;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 64px;
     align-items: center;
   }
-  .hero-v1 .hero-lead { max-width: 760px; }
+  .hero-v1 .hero-lead { max-width: 620px; }
   .hero-v1 h1 {
     font-size: clamp(44px, 5.4vw, 72px);
     font-weight: 800;
@@ -212,6 +212,126 @@
     font-size: 14px;
     color: var(--muted);
     margin-top: 16px;
+  }
+
+  /* Hero phone — Prozac taper progress */
+  .hero-phone-wrap {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+  .hero-phone {
+    position: relative;
+    width: 300px;
+    background: #0c1411;
+    border-radius: 52px;
+    padding: 13px;
+    box-shadow:
+      0 2px 5px rgba(27,43,37,0.12),
+      0 40px 80px -32px rgba(27,43,37,0.55),
+      inset 0 0 0 2px rgba(255,255,255,0.06);
+  }
+  .hero-phone::before {
+    content: '';
+    position: absolute;
+    top: 26px; left: 50%; transform: translateX(-50%);
+    width: 96px; height: 30px;
+    background: #0c1411;
+    border-radius: 100px;
+    z-index: 4;
+  }
+  .hero-phone-screen {
+    position: relative;
+    background: var(--cream2);
+    border-radius: 40px;
+    overflow: hidden;
+    height: 600px;
+  }
+  .hero-phone-status {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 26px 6px;
+    font-size: 13px; font-weight: 700; color: var(--ink);
+  }
+  .hpbar { display: flex; align-items: center; gap: 6px; }
+  .hero-phone-body { padding: 8px 20px 22px; }
+  .hero-phone-appbar {
+    display: flex; align-items: center; gap: 9px; padding: 6px 2px 16px;
+  }
+  .hero-phone-appbar .app-logo { font-size: 17px; font-weight: 800; letter-spacing: -0.03em; color: var(--green); }
+  .hero-phone-appbar .app-logo em { font-style: normal; color: var(--coral); }
+  .hero-phone-appbar .app-tab { margin-left: auto; font-size: 11.5px; font-weight: 700; color: var(--muted); }
+
+  .hp-card {
+    background: var(--white);
+    border: 1px solid var(--line-soft);
+    border-radius: 18px;
+    padding: 16px 16px 14px;
+    box-shadow: var(--shadow-sm);
+  }
+  .hp-card-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 3px; }
+  .hp-med { font-size: 15px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); white-space: nowrap; }
+  .hp-med small { font-size: 11px; font-weight: 600; color: var(--muted); }
+  .hp-pct { font-size: 13px; font-weight: 800; color: var(--coral-d); white-space: nowrap; }
+  .hp-sub { font-size: 11.5px; color: var(--muted); margin-bottom: 14px; }
+
+  /* tiny bar chart */
+  .hp-chart { display: flex; align-items: flex-end; gap: 7px; height: 96px; padding-top: 4px; position: relative; }
+  .hp-target-line {
+    position: absolute; left: 0; right: 0; top: 48px;
+    border-top: 1.5px dashed var(--green-mid);
+  }
+  .hp-target-line span {
+    position: absolute; right: 0; top: -8px;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    color: var(--green-mid); background: var(--cream2); padding: 0 4px;
+  }
+  .hp-bar { flex: 1; border-radius: 4px 4px 2px 2px; background: var(--green-bg); position: relative; }
+  .hp-bar.now { background: var(--coral); }
+  .hp-bar.future { background: var(--green-tint); }
+  .hp-axis { display: flex; justify-content: space-between; margin-top: 8px; }
+  .hp-axis span { font-size: 9px; font-weight: 600; color: var(--muted); flex: 1; text-align: center; }
+
+  /* line chart */
+  .hp-linechart { display: block; margin-top: 6px; overflow: visible; }
+  .hp-dose-row {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 13px; padding-top: 13px; border-top: 1px solid var(--line-soft);
+  }
+  .hp-dose-now { font-size: 13px; color: var(--ink-soft); font-weight: 600; white-space: nowrap; }
+  .hp-dose-now b { color: var(--green); font-weight: 800; }
+  .hp-dose-target { font-size: 13px; color: var(--ink-soft); font-weight: 600; white-space: nowrap; }
+  .hp-dose-target b { color: var(--ink); font-weight: 800; }
+
+  /* Rex coach message inside the phone */
+  .hp-coach { text-align: center; margin: 2px 0 14px; }
+  .hp-coach-av {
+    width: 48px; height: 48px; border-radius: 50%;
+    object-fit: cover; display: inline-block;
+    border: 2px solid #fff;
+    box-shadow: 0 3px 9px rgba(27,43,37,0.20);
+    background: #2f6fd0;
+  }
+  .hp-coach-name { font-size: 11px; font-weight: 800; color: var(--green); margin-top: 7px; letter-spacing: -0.01em; }
+  .hp-coach-name span { color: var(--muted); font-weight: 600; }
+  .hp-coach-bubble {
+    position: relative;
+    margin: 9px auto 0;
+    max-width: 230px;
+    background: var(--green-tint);
+    border-radius: 14px;
+    padding: 10px 14px;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: var(--ink-soft);
+  }
+  .hp-coach-bubble::before {
+    content: '';
+    position: absolute;
+    top: -5px; left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 11px; height: 11px;
+    background: var(--green-tint);
+    border-radius: 2px;
   }
 
   .hero-character {
@@ -1527,7 +1647,9 @@
 
   /* ─────────── RESPONSIVE ─────────── */
   @media (max-width: 920px) {
-    .hero-v1 .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .hero-v1 .hero-grid { grid-template-columns: 1fr; gap: 56px; }
+    .hero-v1 .hero-lead { max-width: 620px; }
+    .hero-phone-wrap { order: -1; }
     .hero-character { max-width: 420px; margin: 0 auto; }
     .ai-card { left: 0; }
     .problem-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -1586,6 +1708,88 @@
             <button type="submit">Join waitlist</button>
           </form>
           <p class="hero-form-note">Takes 30 seconds. We'll ask a few quick questions to help shape the app. No spam, unsubscribe anytime.</p>
+        </div>
+
+        <div class="hero-phone-wrap">
+          <div class="hero-phone">
+            <div class="hero-phone-screen">
+              <div class="hero-phone-status">
+                <span>9:41</span>
+                <span class="hpbar">
+                  <svg width="17" height="11" viewBox="0 0 17 11" fill="none"><rect x="0" y="6" width="3" height="5" rx="1" fill="currentColor"/><rect x="4.5" y="4" width="3" height="7" rx="1" fill="currentColor"/><rect x="9" y="2" width="3" height="9" rx="1" fill="currentColor"/><rect x="13.5" y="0" width="3" height="11" rx="1" fill="currentColor"/></svg>
+                  <svg width="16" height="11" viewBox="0 0 16 11" fill="none"><path d="M8 2.5C10.3 2.5 12.4 3.4 14 4.9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M3 7.4C4.4 6.1 6.1 5.4 8 5.4s3.6.7 5 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="9.6" r="1.2" fill="currentColor"/></svg>
+                  <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.6" y="0.6" width="21" height="10.8" rx="3" stroke="currentColor" stroke-opacity="0.5" stroke-width="1"/><rect x="2" y="2" width="17" height="8" rx="1.6" fill="currentColor"/><rect x="23" y="4" width="1.6" height="4" rx="0.8" fill="currentColor" fill-opacity="0.5"/></svg>
+                </span>
+              </div>
+
+              <div class="hero-phone-body">
+                <div class="hero-phone-appbar">
+                  <span class="app-logo">Taper<em>X</em></span>
+                  <span class="app-tab">My taper</span>
+                </div>
+
+                <div class="hp-coach">
+                  <img class="hp-coach-av" src="rex-avatar.png" alt="Rex Taper">
+                  <div class="hp-coach-name">Rex Taper <span>· Your AI Coach</span></div>
+                  <div class="hp-coach-bubble">Great job getting halfway through your taper. Steady as you go.</div>
+                </div>
+
+                <div class="hp-card">
+                  <div class="hp-card-top">
+                    <span class="hp-med">Prozac <small>(fluoxetine)</small></span>
+                    <span class="hp-pct">50%</span>
+                  </div>
+                  <div class="hp-sub">Halfway to your target dose</div>
+
+                  <svg class="hp-linechart" viewBox="0 0 240 122" width="100%" role="img" aria-label="Prozac taper from 20mg in March down to 0mg in August, currently 10mg in June">
+                    <!-- gridlines -->
+                    <g stroke="#e6ece8" stroke-width="1">
+                      <line x1="30" y1="6" x2="232" y2="6"></line>
+                      <line x1="30" y1="28.5" x2="232" y2="28.5"></line>
+                      <line x1="30" y1="51" x2="232" y2="51"></line>
+                      <line x1="30" y1="73.5" x2="232" y2="73.5"></line>
+                      <line x1="30" y1="96" x2="232" y2="96"></line>
+                    </g>
+                    <!-- y-axis dose labels -->
+                    <g fill="#9aa6a0" font-size="8" font-weight="700" text-anchor="end" font-family="'Hanken Grotesk',sans-serif">
+                      <text x="24" y="9">20</text>
+                      <text x="24" y="31.5">15</text>
+                      <text x="24" y="54">10</text>
+                      <text x="24" y="76.5">5</text>
+                      <text x="24" y="99">0</text>
+                    </g>
+                    <!-- taper path: solid through June, dashed after -->
+                    <polyline points="36,6 73.6,24 111.2,37.5 148.8,51" fill="none" stroke="#1c6b51" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                    <polyline points="148.8,51 186.4,73.5 224,96" fill="none" stroke="#9ec4b4" stroke-width="2.4" stroke-dasharray="2 4" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                    <!-- data dots -->
+                    <g fill="#fff" stroke="#1c6b51" stroke-width="2">
+                      <circle cx="36" cy="6" r="3"></circle>
+                      <circle cx="73.6" cy="24" r="3"></circle>
+                      <circle cx="111.2" cy="37.5" r="3"></circle>
+                      <circle cx="186.4" cy="73.5" r="2.6" stroke="#9ec4b4"></circle>
+                      <circle cx="224" cy="96" r="2.6" stroke="#9ec4b4"></circle>
+                    </g>
+                    <!-- current month (June) highlighted -->
+                    <circle cx="148.8" cy="51" r="5" fill="#ef8466" stroke="#fff" stroke-width="2"></circle>
+                    <!-- x-axis month labels -->
+                    <g font-size="8" font-weight="700" text-anchor="middle" font-family="'Hanken Grotesk',sans-serif" fill="#9aa6a0">
+                      <text x="36" y="115">Mar</text>
+                      <text x="73.6" y="115">Apr</text>
+                      <text x="111.2" y="115">May</text>
+                      <text x="148.8" y="115" fill="#ef8466">Jun</text>
+                      <text x="186.4" y="115">Jul</text>
+                      <text x="224" y="115">Aug</text>
+                    </g>
+                  </svg>
+
+                  <div class="hp-dose-row">
+                    <span class="hp-dose-now">Now: <b>10 mg</b></span>
+                    <span class="hp-dose-target">Target: <b>0 mg</b></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
