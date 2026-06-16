@@ -302,36 +302,72 @@
   .hp-dose-target { font-size: 13px; color: var(--ink-soft); font-weight: 600; white-space: nowrap; }
   .hp-dose-target b { color: var(--ink); font-weight: 800; }
 
-  /* Rex coach message inside the phone */
-  .hp-coach { text-align: center; margin: 2px 0 14px; }
-  .hp-coach-av {
-    width: 48px; height: 48px; border-radius: 50%;
-    object-fit: cover; display: inline-block;
-    border: 2px solid #fff;
-    box-shadow: 0 3px 9px rgba(27,43,37,0.20);
-    background: #2f6fd0;
+  /* Rex coach card inside the phone — mirrors the .ai-card style, compact */
+  .hp-coach {
+    margin: 2px 0 14px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 12px 13px;
+    box-shadow: 0 1px 3px rgba(27,43,37,0.05), 0 10px 22px -16px rgba(27,43,37,0.25);
   }
-  .hp-coach-name { font-size: 11px; font-weight: 800; color: var(--green); margin-top: 7px; letter-spacing: -0.01em; }
-  .hp-coach-name span { color: var(--muted); font-weight: 600; }
+  .hp-coach-head { display: flex; align-items: center; gap: 9px; margin-bottom: 8px; }
+  .hp-coach-av {
+    width: 30px; height: 30px; border-radius: 50%;
+    flex-shrink: 0;
+    background: var(--green);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; letter-spacing: -0.02em;
+  }
+  .hp-coach-name { font-size: 12.5px; font-weight: 800; color: var(--ink); letter-spacing: -0.01em; line-height: 1.2; }
+  .hp-coach-name span { display: block; font-size: 10.5px; color: var(--green-mid); font-weight: 700; }
+  .hp-coach-name span::before { content: '● '; color: var(--green-mid); font-size: 8px; }
+
+  .hp-coach-row { display: flex; align-items: flex-end; gap: 9px; }
   .hp-coach-bubble {
     position: relative;
-    margin: 9px auto 0;
-    max-width: 230px;
-    background: var(--green-tint);
-    border-radius: 14px;
-    padding: 10px 14px;
-    font-size: 12.5px;
-    line-height: 1.4;
+    flex: 1;
+    background: var(--cream2);
+    border: 1.5px solid #eeb4a2;
+    border-radius: 13px;
+    padding: 9px 12px;
+    font-size: 12px;
+    line-height: 1.32;
     color: var(--ink-soft);
   }
+  /* speech-bubble tail, bottom-left, with matching border */
   .hp-coach-bubble::before {
     content: '';
     position: absolute;
-    top: -5px; left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    width: 11px; height: 11px;
-    background: var(--green-tint);
-    border-radius: 2px;
+    left: 16px; bottom: -9px;
+    border-width: 9px 8px 0 8px;
+    border-style: solid;
+    border-color: #eeb4a2 transparent transparent transparent;
+  }
+  .hp-coach-bubble::after {
+    content: '';
+    position: absolute;
+    left: 17px; bottom: -6px;
+    border-width: 7px 7px 0 7px;
+    border-style: solid;
+    border-color: var(--cream2) transparent transparent transparent;
+  }
+  .hp-coach-dots { display: flex; gap: 4px; margin-top: 7px; }
+  .hp-coach-dots span {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--coral);
+    animation: hpBlink 1.4s infinite both;
+  }
+  .hp-coach-dots span:nth-child(2) { animation-delay: 0.2s; }
+  .hp-coach-dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes hpBlink { 0%, 80%, 100% { opacity: 0.3; } 40% { opacity: 1; } }
+  .hp-coach-rex {
+    width: 42px; height: 42px; border-radius: 50%;
+    object-fit: cover; flex-shrink: 0;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 7px rgba(27,43,37,0.18);
+    background: #2f6fd0;
   }
 
   .hero-character {
@@ -1729,9 +1765,16 @@
                 </div>
 
                 <div class="hp-coach">
-                  <img class="hp-coach-av" src="rex-avatar.png" alt="Rex Taper">
-                  <div class="hp-coach-name">Rex Taper <span>· Your AI Coach</span></div>
-                  <div class="hp-coach-bubble">Great job getting halfway through your taper. Steady as you go.</div>
+                  <div class="hp-coach-head">
+                    <div class="hp-coach-av">RT</div>
+                    <div class="hp-coach-name">Rex Taper <span>Your TaperX AI Coach</span></div>
+                  </div>
+                  <div class="hp-coach-row">
+                    <div class="hp-coach-bubble">Great job getting halfway through your taper. Steady as you go, I'm right here with you.
+                      <div class="hp-coach-dots"><span></span><span></span><span></span></div>
+                    </div>
+                    <img class="hp-coach-rex" src="rex-avatar.png" alt="Rex Taper">
+                  </div>
                 </div>
 
                 <div class="hp-card">
@@ -2191,21 +2234,12 @@
         </div>
 
         <div class="coach-card">
-          <span class="coach-badge">Follow-up · long</span>
-          <div class="coach-card-name">Follow-up (long)</div>
+          <span class="coach-badge">Follow-up</span>
+          <div class="coach-card-name">Follow-up</div>
           <div class="coach-card-meta">30 minutes · one-on-one</div>
           <div class="coach-price"><span class="amt">$95</span><span class="dur">/ session</span></div>
           <p class="coach-desc">For anyone who already has a TaperX plan and has more than a quick question. We'll talk through your concerns and adjust your plan to match how you're doing. Also a good fit if you're tapering on a plan built outside TaperX and want personalised advice on it.</p>
-          <a href="mailto:coaching@taperx.com?subject=Book%20a%20Follow-up%20(long%2C%2030%20min%20%E2%80%93%20%2495)" class="coach-book">Book a long follow-up</a>
-        </div>
-
-        <div class="coach-card">
-          <span class="coach-badge">Follow-up · standard</span>
-          <div class="coach-card-name">Follow-up (standard)</div>
-          <div class="coach-card-meta">15 minutes · one-on-one</div>
-          <div class="coach-price"><span class="amt">$50</span><span class="dur">/ session</span></div>
-          <p class="coach-desc">A quick check-in for a single question or a small adjustment once your plan is already underway.</p>
-          <a href="mailto:coaching@taperx.com?subject=Book%20a%20Follow-up%20(standard%2C%2015%20min%20%E2%80%93%20%2450)" class="coach-book">Book a quick follow-up</a>
+          <a href="mailto:coaching@taperx.com?subject=Book%20a%20Follow-up%20(30%20min%2C%20%2495)" class="coach-book">Book a follow-up</a>
         </div>
 
       </div>
