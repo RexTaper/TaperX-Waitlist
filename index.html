@@ -2631,12 +2631,12 @@
     }
 
     document.querySelectorAll('[data-mini-form]').forEach(form => {
-      form.addEventListener('submit', async (e) => {
+      form.addEventListener('submit', (e) => {
         e.preventDefault();
         const fd = new FormData(form);
         const data = Object.fromEntries(fd.entries());
         if (!data.name || !data.email) return;
-        await handleSubmit(data, true);
+        // Pre-fill the full form and scroll down — do NOT submit to Formspree yet
         document.getElementById('wl-name').value = data.name;
         document.getElementById('wl-email').value = data.email;
         document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
